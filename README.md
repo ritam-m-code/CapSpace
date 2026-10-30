@@ -199,7 +199,7 @@ not. Every player who has missed games currently reads as under-rated. That
 is the intended mechanism, but at this point in the season it is a
 systematic bias rather than selective arbitrage.
 
-See `HANDOFF.md`.
+See `STATE.md` for what runs today and `HANDOFF.md` for design decisions.
 
 ---
 

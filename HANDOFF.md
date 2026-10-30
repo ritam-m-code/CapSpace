@@ -1,68 +1,31 @@
 # CapSpace handoff — 2026-10-29
 
 Written at the halfway mark for whoever picks this up next, human or agent.
-The README is the spec and has not changed except its Status section and the
-deployment target. **Read the README first, then this.**
 
-Branch: `feat/data-valuation-core`, 13 commits, not merged to `main`.
+Three files, three jobs:
+
+| File | Answers |
+|---|---|
+| `README.md` | the spec — what CapSpace is meant to do |
+| `STATE.md` | what works right now: commands, counts, known issues |
+| this file | **why** it is built this way, and what to do next |
+
+**Read the README first, then `STATE.md`, then this.** The README is unchanged
+except its Status section and the deployment target.
+
+Branch: `feat/data-valuation-core`, not merged to `main`.
 
 ---
 
 ## Where things stand
 
-The data and valuation half is done and works end to end. Checklist items 1–5
-of the README are shipped; 6–10 are not started.
+The data and valuation half is done and works end to end against live NBA and
+ESPN data. README checklist items 1–5 are shipped; 6–10 are not started.
 
-```
-181 tests passing · ruff clean · ruff format clean · pyright 0 errors
-```
-
-Run it:
-
-```bash
-uv sync --extra dev
-CAPSPACE_FIXTURES=1 uv run capspace rank --view zscore --sort-by spread
-```
-
-That needs no credentials and no network. It prints the product's core
-artifact: every pooled player's model value beside ESPN's perceived rank,
-sorted by the gap.
-
-### What exists
-
-| File | Does | Verified against |
-|---|---|---|
-| `data/schemas.py` | pydantic v2 models, `CATEGORIES`, `POOL_SIZE` | — |
-| `data/storage.py` | DuckDB cache, 12h TTL, stale-on-failure | unit tests |
-| `data/ingestion.py` | `nba_api` game logs + schedule | **live API** |
-| `data/espn.py` | ESPN reads, status map, name crosswalk | **live private league** |
-| `engine/schedule.py` | weekly game counts, off-night density | real recorded schedule |
-| `engine/projections.py` | per-minute rates, shrinkage, minutes | real recorded game logs |
-| `engine/metrics.py` | volume-weighted category z-scores | real recorded game logs |
-| `cli/main.py` | `capspace rank`, `capspace fixtures-record` | fixtures + **live run** |
-
-Fixtures in `tests/fixtures/`:
-
-- `nba_gamelogs.json`, `nba_schedule.json` — recorded from the live
-  `nba_api` on 2026-10-29. 10 players, 10 teams, **Jan 2026** window (the
-  2025-26 season), chosen for its edge cases. Recorded by
-  `scripts/record_nba_fixtures.py`.
-- `espn_league.json` — recorded from the **live league** on 2026-10-29. 308
-  players (108 rostered, 200 free agents), 8 teams, **2026-27** season. Ids
-  anonymized. Re-record with `uv run capspace fixtures-record`.
-
-**These two fixtures are from different seasons.** The engine fixture is
-2025-26 for its edge cases; the ESPN fixture is the live 2026-27 league. Nine
-of ten players overlap by name, so `CAPSPACE_FIXTURES=1` works, but the
-ranks and the game logs describe different seasons and the demo output is
-correspondingly muted. Recording a current-season NBA fixture would make
-fixtures mode coherent; the engine fixture should stay as it is.
-
-The fixture cast was chosen to carry edge cases, not just stars: Keegan
-Murray has 3 games (thin sample), Micah Peavy has 0 free-throw attempts
-across 14 games and is `OUT`.
-
----
+`STATE.md` carries the current snapshot — test counts, runnable commands,
+per-module status, fixture inventory and the ranked list of known issues. It
+is not repeated here. What follows is the reasoning a fresh session cannot
+recover from the code.
 
 ## The ESPN seam — now verified
 
@@ -115,35 +78,13 @@ uv run capspace rank --limit 15
 Executed successfully against the real league on 2026-10-29: 1569 game logs,
 106 ESPN players matched to NBA ids, pool of 100.
 
-### One caveat about the current output — read this before trusting it
+### One caveat worth carrying forward
 
-The 2026-27 season is nine days old. **Max games played by anyone is 6**, and
-the pool median is 5. ESPN ranks on season-to-date *totals*, which punish
-missed games; the model works in per-game rates times projected minutes and
-is games-played-neutral. So every player who has missed games currently looks
-badly under-rated: the top fifteen spreads were all players with 3 games
-against a pool median of 5 (Holmgren, Lillard, Morant, Booker, Curry).
-
-That is the thesis mechanism working, but right now it is a **systematic
-early-season bias, not selective arbitrage**, and it will sharpen as games
-accumulate. Two things worth doing:
-
-- Add a `--min-games` filter to `rank` so thin-sample players can be excluded
-  rather than dominating the sort. Deliberately not added here: it is a
-  product decision for the owner, not a silent default.
-- Consider a games-played-adjusted comparison, since ESPN rank and model rank
-  genuinely answer different questions in the first few weeks.
-
-### Remaining ESPN unknowns
-
-- `_load_from_live` works but is covered only by the auth-failure test. No
-  test exercises the happy path, because that needs credentials.
-- Only 106 of 308 ESPN players matched to NBA ids. Most of the gap is players
-  with no games yet, but the crosswalk's miss rate has not been audited.
-  `match_players_by_name` drops ambiguous names silently by design.
-- `read_settings` reads `acquisition_limit` and `waiver_process_days` from
-  the live settings object, but the values were not asserted against what the
-  league actually shows in the ESPN UI.
+The spreads this currently produces are dominated by games played, not by
+quality: ESPN ranks on season-to-date totals, the model on per-game rates.
+Nine days into the season that is a systematic bias, not arbitrage. See
+`STATE.md` issue 1 — it resolves itself as games accumulate, and a
+`--min-games` filter is the product decision left open.
 
 ---
 
