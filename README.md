@@ -176,7 +176,7 @@ League settings — roster slots, lineup lock type, acquisition limits, scoring 
 ## Status
 
 Data and valuation core shipped; `capspace rank` runs against live NBA and
-ESPN data. 181 tests, `ruff` and `pyright` clean.
+ESPN data. 188 tests, `ruff` and `pyright` clean.
 
 - [x] ESPN read integration, league settings, DuckDB schema
 - [x] Projections: per-minute rates and minutes estimates
@@ -189,9 +189,10 @@ ESPN data. 181 tests, `ruff` and `pyright` clean.
 - [ ] Discord bot and scheduled digest
 - [ ] Lineup write path with guardrails
 
-Both ESPN seams are now verified against a live private league. Recorded
-fixtures come from a real league with ids anonymized, and `capspace rank`
-has been run end to end against live NBA and ESPN data.
+Both ESPN seams are now verified against a live private league, and
+`capspace rank` has been run end to end against live NBA and ESPN data.
+Committed fixtures carry no league identity: the demo fixture is synthetic
+and the real recording is anonymized to placeholder names.
 
 One caveat on current output: the season is nine days old, so ESPN's
 season-to-date ranks punish missed games while the model's per-game rates do

@@ -258,7 +258,10 @@ def read_player_ranks(client: Any, limit: int = DEFAULT_RANK_LIMIT) -> dict[int,
       Using it would price every player as of October.
 
     Players with no rank are omitted rather than given a sentinel, so callers
-    render a blank instead of mistaking 0 for "best in the league".
+    render a blank instead of mistaking 0 for "best in the league". ESPN
+    itself sends `totalRanking: 0` for players it does not rank — 21 of 308
+    in a real league, 17 of them `OUT` but 4 `ACTIVE` — so a non-positive
+    rank is treated as absent.
     """
     filters = {
         "players": {
@@ -279,6 +282,6 @@ def read_player_ranks(client: Any, limit: int = DEFAULT_RANK_LIMIT) -> dict[int,
         espn_id = entry.get("id")
         split = (entry.get("ratings") or {}).get(SEASON_RATING_SPLIT) or {}
         rank = split.get("totalRanking")
-        if espn_id is not None and rank is not None:
+        if espn_id is not None and rank is not None and int(rank) > 0:
             ranks[int(espn_id)] = int(rank)
     return ranks

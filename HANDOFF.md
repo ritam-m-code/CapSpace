@@ -64,10 +64,25 @@ What was wrong, in case any of it regresses:
    README's streaming thesis depends on. Mitchell was season-29 / recent-7.
    Worth surfacing in Plan 2.
 
-4. **Real `eligibleSlots` carry `UT`, not `UTIL`**, plus combination slots
+4. **ESPN sends `totalRanking: 0` to mean unranked**, not rank one. 21 of
+   308 players in the real league, 17 of them `OUT` but 4 `ACTIVE`. A
+   non-positive rank is now treated as absent. This is the exact failure the
+   reader's own docstring warned about and it still shipped once, so treat
+   any new numeric field from this payload as sentinel-bearing until proven
+   otherwise.
+
+5. **Real `eligibleSlots` carry `UT`, not `UTIL`**, plus combination slots
    (`G`, `F`, `G/F`, `SG/SF`, `PF/C`, `F/C`). Only `ATOMIC_POSITIONS` are
    kept. `ownership.percentOwned` is also available and is a second
    perceived-value signal nothing uses yet.
+
+### Fixture privacy
+
+This repo is **public**, so the committed ESPN fixtures are split: a fully
+synthetic one drives the demo, and the real recording is anonymized to
+placeholder names and ids while keeping every structural fact. See `STATE.md`
+for which file does what. `capspace fixtures-record` anonymizes by default;
+`--with-names` is for local files only. Do not commit a `--with-names` file.
 
 ### The live path runs
 

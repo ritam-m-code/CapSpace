@@ -1,17 +1,17 @@
 # Current state
 
-Snapshot as of **2026-10-29**. This file answers "what works right now?"
+Snapshot as of **2026-10-30**. This file answers "what works right now?"
 `HANDOFF.md` answers "why is it like this, and what next?" The README is the
 spec.
 
-Branch `feat/data-valuation-core`, 14 commits, **not merged to `main`**.
+Branch `feat/data-valuation-core`, **not merged to `main`**.
 
 ---
 
 ## Verification
 
 ```
-181 tests passing · ruff clean · ruff format clean · pyright 0 errors
+188 tests passing · ruff clean · ruff format clean · pyright 0 errors
 ```
 
 Reproduce the whole gate:
@@ -25,7 +25,7 @@ uvx pyright capspace tests
 
 | Suite | Tests | Covers |
 |---|---:|---|
-| `test_espn.py` | 53 | rank field, filter header, status map, crosswalk, auth |
+| `test_espn.py` | 60 | rank field, filter header, status map, crosswalk, auth |
 | `test_projections.py` | 24 | per-minute rates, shrinkage, minutes, projection |
 | `test_metrics.py` | 23 | z-scores, percentage impact, pool eligibility |
 | `test_cli_rank.py` | 23 | `rank` table, spread, sorting, `.env` loading |
@@ -48,8 +48,8 @@ uv run capspace rank --view zscore --sort-by spread
 uv run capspace fixtures-record
 ```
 
-Credentials come from `.env`. Last live run: 1569 game logs, 106 ESPN players
-matched to NBA ids, pool of 100.
+Credentials come from `.env`. Last live run (2026-10-29): 1569 game logs, 106 ESPN players matched to
+NBA ids, pool of 100.
 
 ### Without credentials or network
 
@@ -98,21 +98,34 @@ README checklist: items 1–5 done, 6–10 not started.
 |---|---|---|
 | `nba_gamelogs.json` | live `nba_api` | 10 players, 10 teams, Jan 2026 (**2025-26**) |
 | `nba_schedule.json` | live `nba_api` | 466 rows, 30 teams, Jan 2026 |
-| `espn_league.json` | **live league** | 308 players, 8 teams (**2026-27**) |
+| `espn_league.json` | **synthetic** | 10 players matching the NBA fixture |
+| `espn_league_shape.json` | live league, **anonymized** | 308 players, 8 teams (2026-27) |
 
 The NBA fixture's cast was chosen for edge cases, not stars: Keegan Murray
 has 3 games (thin sample), Micah Peavy has 0 free-throw attempts across 14
 games and is `OUT`.
 
-`espn_league.json` holds real player names, rosters, ESPN ranks and injury
-statuses. **League and team ids are anonymized** (`1234567` / `1`), and it
-contains no credentials.
+The two ESPN fixtures do different jobs, and the split is deliberate because
+**this repo is public**:
 
-The two fixtures are from **different seasons**, so `CAPSPACE_FIXTURES=1`
-mixes them: 9 of 10 players overlap by name, enough to exercise the pipeline,
-but the demo output is muted. The live run is the meaningful one.
+- `espn_league.json` drives the `CAPSPACE_FIXTURES=1` demo. Its ten names are
+  the public NBA players in `nba_gamelogs.json`; the ranks and statuses are
+  invented to exercise the spread, the unranked dash and the `OUT` exclusion.
+  It contains **no data from any real league**.
+- `espn_league_shape.json` is a real recording with **player names and ids
+  replaced by placeholders** (`P001`, id `900000+`). Ranks, injury statuses,
+  eligible slots, pro teams, team assignments and the rostered-versus-free-
+  agent split are real, so it documents the distribution the readers must
+  survive. `test_espn.py::TestRecordedLeagueShape` guards it.
 
----
+`capspace fixtures-record` anonymizes by default and writes the shape file.
+`--with-names` keeps real names for a local file you must not commit.
+
+Neither committed fixture contains credentials or a league identifier.
+
+The NBA and ESPN fixtures are from **different seasons** (2025-26 engine
+fixture, 2026-27 league), so the demo's numbers are illustrative. The live
+run is the meaningful one.
 
 ## Known issues
 
@@ -130,21 +143,26 @@ Ordered by how much they matter.
 2. **`_load_from_live` has no happy-path test.** It runs correctly, but only
    the auth-failure branch is covered, since the rest needs credentials.
 
-3. **Crosswalk miss rate unaudited.** 106 of 308 ESPN players matched to NBA
+3. **ESPN sends `totalRanking: 0` for unranked players** — 21 of 308 in the
+   real league, 17 `OUT` but 4 `ACTIVE`. Non-positive ranks are now treated
+   as absent; before the fix those four would have sorted as the best players
+   in the league. Watch for other sentinel values in the same payload.
+
+4. **Crosswalk miss rate unaudited.** 106 of 308 ESPN players matched to NBA
    ids. Most of the gap is players with no games yet, but this has not been
    checked. `match_players_by_name` drops ambiguous names silently by design.
 
-4. **`_nba_name_index` re-reads the cache** to recover player names. Game
+5. **`_nba_name_index` re-reads the cache** to recover player names. Game
    logs should carry names through `ingestion.py` instead.
 
-5. **`engine/schedule.py` has no caller.** The streaming MILP will be its
+6. **`engine/schedule.py` has no caller.** The streaming MILP will be its
    first consumer.
 
-6. **`read_settings` values unasserted.** `acquisition_limit` and
+7. **`read_settings` values unasserted.** `acquisition_limit` and
    `waiver_process_days` are read from the live settings object but were not
    compared against what the ESPN UI actually shows.
 
-7. **Two ESPN signals unexploited.** `ratings["1"]` is a recent-form window —
+8. **Two ESPN signals unexploited.** `ratings["1"]` is a recent-form window —
    the gap between it and `ratings["0"]` is the "role changed four days ago"
    signal the streaming thesis depends on. `ownership.percentOwned` is a
    second perceived-value measure. Neither is used.

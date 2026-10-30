@@ -7,12 +7,14 @@ against a live private league — see the plan's handoff notes.
 """
 
 import json
+import re
 from dataclasses import dataclass, field
 from typing import Any
 
 import pytest
 
 from capspace.data.espn import (
+    ATOMIC_POSITIONS,
     EspnAuthError,
     EspnCreds,
     match_players_by_name,
@@ -23,6 +25,7 @@ from capspace.data.espn import (
     read_settings,
     to_status,
 )
+from capspace.data.ingestion import load_fixture
 from capspace.data.schemas import CATEGORIES
 
 
@@ -253,6 +256,19 @@ class TestReadPlayerRanks:
         league.espn_request = FakeRequest({"players": [{"id": 1, "ratings": {}}]})
         assert read_player_ranks(league) == {}
 
+    def test_a_zero_total_ranking_is_treated_as_unranked(self):
+        """ESPN sends `totalRanking: 0` for players it does not rank, mostly
+        injured ones. Passing it through would sort them best in the league.
+        Seen on 21 of 308 players in a real league, 4 of them ACTIVE."""
+        league = a_league()
+        league.espn_request = FakeRequest(self.ratings_payload([(11, 0, 0), (22, 29, 7)]))
+        assert read_player_ranks(league) == {22: 29}
+
+    def test_a_negative_total_ranking_is_treated_as_unranked(self):
+        league = a_league()
+        league.espn_request = FakeRequest(self.ratings_payload([(11, -1, -1)]))
+        assert read_player_ranks(league) == {}
+
     def test_a_null_total_ranking_is_omitted(self):
         league = a_league()
         league.espn_request = FakeRequest(
@@ -344,3 +360,38 @@ class TestCrosswalk:
         espn = {1: "Jalen Williams"}
         nba = {10: "Jalen Williams", 11: "Jalen  Williams"}
         assert match_players_by_name(espn, nba) == {}
+
+
+class TestRecordedLeagueShape:
+    """Guards `espn_league_shape.json`: a real league recording with names and
+    ids anonymized. It documents the distribution the readers must survive."""
+
+    @pytest.fixture
+    def shape(self) -> dict:
+        return load_fixture("espn_league_shape")
+
+    def test_carries_a_full_league(self, shape):
+        assert len(shape["players"]) > 250
+        assert len(shape["teams"]) == 8
+
+    def test_identities_are_anonymized(self, shape):
+        assert all(re.fullmatch(r"P\d{3}", p["name"]) for p in shape["players"])
+        assert all(p["playerId"] >= 900000 for p in shape["players"])
+        assert shape["league_id"] == 1234567
+
+    def test_every_status_maps_to_the_schema(self, shape):
+        for entry in shape["players"]:
+            assert to_status(entry["injuryStatus"]) in {"ACTIVE", "DTD", "OUT", "INACTIVE"}
+
+    def test_real_leagues_contain_plenty_of_unranked_players(self, shape):
+        """45 of 308 here. ESPN leaves deep-bench and injured players
+        unranked, and sends `totalRanking: 0` for some of them; the reader
+        normalizes both to absent, so no zero survives into this file."""
+        ranks = [p["espn_rank"] for p in shape["players"]]
+        assert sum(1 for r in ranks if r is None) > 20
+        assert all(r is None or r > 0 for r in ranks)
+
+    def test_eligible_slots_only_contain_atomic_positions(self, shape):
+        """The readers already filtered combination and bench slots out."""
+        seen = {s for p in shape["players"] for s in p["eligibleSlots"]}
+        assert seen <= set(ATOMIC_POSITIONS)

@@ -283,14 +283,24 @@ def _print(frame: pd.DataFrame, view: str, out: Console | None = None) -> None:
 @app.command("fixtures-record")
 def fixtures_record(
     out: Path = typer.Option(
-        Path("tests/fixtures/espn_league.json"), help="Where to write the fixture."
+        Path("tests/fixtures/espn_league_shape.json"), help="Where to write the fixture."
+    ),
+    with_names: bool = typer.Option(
+        False,
+        "--with-names",
+        help="Keep real player names. Do not commit the result to a public repo.",
     ),
 ) -> None:
     """Record this league's real ESPN shapes into `tests/fixtures/`.
 
-    Needs credentials in `.env`, and is never run by the test suite. The
-    committed ESPN fixture is synthetic until this has been run once against
-    a live private league; see SETUP_CREDENTIALS.md.
+    Needs credentials in `.env`, and is never run by the test suite.
+
+    **Player names and ids are anonymized by default**, because this repo is
+    public and a league's roster composition is the owner's to share. Ranks,
+    statuses, eligible slots, pro teams, team assignments and the
+    rostered-versus-free-agent split are all preserved, so the recording
+    still documents a real league's distribution. Pass `--with-names` only
+    for a local file you will not commit.
     """
     creds = load_credentials()
     season = _current_season()
@@ -303,11 +313,24 @@ def fixtures_record(
         console.print(f"[red]{exc}[/red]")
         raise typer.Exit(code=1) from exc
 
+    aliases: dict[str, str] = {}
+    alias_ids: dict[int, int] = {}
+
+    def alias(name: str) -> str:
+        if with_names:
+            return name
+        return aliases.setdefault(name, f"P{len(aliases) + 1:03d}")
+
+    def alias_id(espn_id: int | None) -> int | None:
+        if with_names or espn_id is None:
+            return espn_id
+        return alias_ids.setdefault(espn_id, 900000 + len(alias_ids))
+
     def as_entry(player: Player) -> dict[str, Any]:
         espn_id = player.espn_id
         return {
-            "name": player.name,
-            "playerId": espn_id,
+            "name": alias(player.name),
+            "playerId": alias_id(espn_id),
             "espn_rank": ranks.get(espn_id) if espn_id is not None else None,
             "injuryStatus": player.status,
             "proTeam": player.team,
@@ -317,20 +340,25 @@ def fixtures_record(
     rostered = [p for roster in rosters.values() for p in roster]
     players = [as_entry(p) for p in rostered + agents]
 
-    # League and team ids are anonymized: this fixture is committed and no
-    # test needs the real ones. Rosters, names, statuses and ranks are real.
     document = {
         "_note": (
-            f"Recorded from a live private league for {season} on "
-            f"{dt.date.today().isoformat()}. League and team ids anonymized."
+            f"Recorded from a live private ESPN league for {season} on "
+            f"{dt.date.today().isoformat()}."
+            + (
+                " Real player names retained — DO NOT COMMIT."
+                if with_names
+                else " Anonymized: player names and ids are placeholders, while "
+                "ranks, statuses, slots, pro teams and team assignments are real."
+            )
         ),
         "league_id": ANONYMIZED_LEAGUE_ID,
         "team_id": ANONYMIZED_TEAM_ID,
         "year": int(season.split("-")[0]) + 1,
         "teams": [
-            {"team_id": tid, "roster": [p.name for p in roster]} for tid, roster in rosters.items()
+            {"team_id": tid, "roster": [alias(p.name) for p in roster]}
+            for tid, roster in rosters.items()
         ],
-        "free_agents": [p.name for p in agents],
+        "free_agents": [alias(p.name) for p in agents],
         "players": players,
     }
     out.parent.mkdir(parents=True, exist_ok=True)
@@ -341,6 +369,11 @@ def fixtures_record(
         f"({len(rostered)} rostered, {len(agents)} free agents) "
         f"from {len(rosters)} teams to {out}. {ranked} carry an ESPN rank.[/green]"
     )
+    if with_names:
+        console.print(
+            "[yellow]Real player names retained. Do not commit this file to a "
+            "public repository.[/yellow]"
+        )
     if not ranks:
         console.print(
             "[yellow]No player ranks came back. The kona_player_info field path is "

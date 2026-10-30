@@ -1,0 +1,3629 @@
+{
+ "_note": "Recorded from a live private ESPN league for 2026-27 on 2026-10-29. Anonymized: player names and ids are placeholders, while ranks, statuses, slots, pro teams and team assignments are real.",
+ "league_id": 1234567,
+ "team_id": 1,
+ "year": 2027,
+ "teams": [
+  {
+   "team_id": 1,
+   "roster": [
+    "P001",
+    "P002",
+    "P003",
+    "P004",
+    "P005",
+    "P006",
+    "P007",
+    "P008",
+    "P009",
+    "P010",
+    "P011",
+    "P012",
+    "P013",
+    "P014"
+   ]
+  },
+  {
+   "team_id": 2,
+   "roster": [
+    "P015",
+    "P016",
+    "P017",
+    "P018",
+    "P019",
+    "P020",
+    "P021",
+    "P022",
+    "P023",
+    "P024",
+    "P025",
+    "P026",
+    "P027"
+   ]
+  },
+  {
+   "team_id": 3,
+   "roster": [
+    "P028",
+    "P029",
+    "P030",
+    "P031",
+    "P032",
+    "P033",
+    "P034",
+    "P035",
+    "P036",
+    "P037",
+    "P038",
+    "P039",
+    "P040"
+   ]
+  },
+  {
+   "team_id": 4,
+   "roster": [
+    "P041",
+    "P042",
+    "P043",
+    "P044",
+    "P045",
+    "P046",
+    "P047",
+    "P048",
+    "P049",
+    "P050",
+    "P051",
+    "P052",
+    "P053",
+    "P054"
+   ]
+  },
+  {
+   "team_id": 5,
+   "roster": [
+    "P055",
+    "P056",
+    "P057",
+    "P058",
+    "P059",
+    "P060",
+    "P061",
+    "P062",
+    "P063",
+    "P064",
+    "P065",
+    "P066",
+    "P067",
+    "P068"
+   ]
+  },
+  {
+   "team_id": 6,
+   "roster": [
+    "P069",
+    "P070",
+    "P071",
+    "P072",
+    "P073",
+    "P074",
+    "P075",
+    "P076",
+    "P077",
+    "P078",
+    "P079",
+    "P080",
+    "P081"
+   ]
+  },
+  {
+   "team_id": 7,
+   "roster": [
+    "P082",
+    "P083",
+    "P084",
+    "P085",
+    "P086",
+    "P087",
+    "P088",
+    "P089",
+    "P090",
+    "P091",
+    "P092",
+    "P093",
+    "P094",
+    "P095"
+   ]
+  },
+  {
+   "team_id": 8,
+   "roster": [
+    "P096",
+    "P097",
+    "P098",
+    "P099",
+    "P100",
+    "P101",
+    "P102",
+    "P103",
+    "P104",
+    "P105",
+    "P106",
+    "P107",
+    "P108"
+   ]
+  }
+ ],
+ "free_agents": [
+  "P109",
+  "P110",
+  "P111",
+  "P112",
+  "P113",
+  "P114",
+  "P115",
+  "P116",
+  "P117",
+  "P118",
+  "P119",
+  "P120",
+  "P121",
+  "P122",
+  "P123",
+  "P124",
+  "P125",
+  "P126",
+  "P127",
+  "P128",
+  "P129",
+  "P130",
+  "P131",
+  "P132",
+  "P133",
+  "P053",
+  "P134",
+  "P135",
+  "P136",
+  "P137",
+  "P138",
+  "P139",
+  "P140",
+  "P141",
+  "P142",
+  "P143",
+  "P144",
+  "P145",
+  "P146",
+  "P147",
+  "P148",
+  "P149",
+  "P150",
+  "P151",
+  "P152",
+  "P153",
+  "P154",
+  "P155",
+  "P156",
+  "P157",
+  "P158",
+  "P159",
+  "P160",
+  "P161",
+  "P162",
+  "P163",
+  "P164",
+  "P165",
+  "P166",
+  "P167",
+  "P168",
+  "P169",
+  "P170",
+  "P171",
+  "P172",
+  "P173",
+  "P174",
+  "P175",
+  "P176",
+  "P177",
+  "P178",
+  "P179",
+  "P180",
+  "P181",
+  "P182",
+  "P183",
+  "P184",
+  "P185",
+  "P186",
+  "P187",
+  "P188",
+  "P189",
+  "P190",
+  "P191",
+  "P192",
+  "P193",
+  "P194",
+  "P195",
+  "P196",
+  "P197",
+  "P198",
+  "P199",
+  "P200",
+  "P201",
+  "P202",
+  "P203",
+  "P204",
+  "P205",
+  "P206",
+  "P207",
+  "P208",
+  "P209",
+  "P210",
+  "P211",
+  "P212",
+  "P213",
+  "P214",
+  "P215",
+  "P216",
+  "P217",
+  "P218",
+  "P219",
+  "P220",
+  "P221",
+  "P222",
+  "P223",
+  "P224",
+  "P225",
+  "P226",
+  "P227",
+  "P228",
+  "P229",
+  "P230",
+  "P231",
+  "P232",
+  "P233",
+  "P234",
+  "P235",
+  "P236",
+  "P237",
+  "P238",
+  "P239",
+  "P240",
+  "P241",
+  "P242",
+  "P243",
+  "P244",
+  "P245",
+  "P246",
+  "P247",
+  "P248",
+  "P249",
+  "P250",
+  "P251",
+  "P252",
+  "P253",
+  "P254",
+  "P255",
+  "P256",
+  "P257",
+  "P258",
+  "P259",
+  "P260",
+  "P261",
+  "P262",
+  "P263",
+  "P264",
+  "P265",
+  "P266",
+  "P267",
+  "P268",
+  "P269",
+  "P270",
+  "P271",
+  "P272",
+  "P273",
+  "P274",
+  "P275",
+  "P276",
+  "P277",
+  "P278",
+  "P279",
+  "P280",
+  "P281",
+  "P282",
+  "P283",
+  "P284",
+  "P285",
+  "P286",
+  "P287",
+  "P288",
+  "P289",
+  "P290",
+  "P291",
+  "P292",
+  "P293",
+  "P294",
+  "P295",
+  "P296",
+  "P297",
+  "P298",
+  "P299",
+  "P300",
+  "P301",
+  "P302",
+  "P303",
+  "P304",
+  "P305",
+  "P306",
+  "P307"
+ ],
+ "players": [
+  {
+   "name": "P001",
+   "playerId": 900000,
+   "espn_rank": 1,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "SAS",
+   "eligibleSlots": [
+    "C"
+   ]
+  },
+  {
+   "name": "P002",
+   "playerId": 900001,
+   "espn_rank": 186,
+   "injuryStatus": "OUT",
+   "proTeam": "TOR",
+   "eligibleSlots": [
+    "SF",
+    "PF"
+   ]
+  },
+  {
+   "name": "P003",
+   "playerId": 900002,
+   "espn_rank": 29,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "CLE",
+   "eligibleSlots": [
+    "PG",
+    "SG"
+   ]
+  },
+  {
+   "name": "P004",
+   "playerId": 900003,
+   "espn_rank": 32,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "GSW",
+   "eligibleSlots": [
+    "PG"
+   ]
+  },
+  {
+   "name": "P005",
+   "playerId": 900004,
+   "espn_rank": 130,
+   "injuryStatus": "DTD",
+   "proTeam": "OKC",
+   "eligibleSlots": [
+    "PF",
+    "C"
+   ]
+  },
+  {
+   "name": "P006",
+   "playerId": 900005,
+   "espn_rank": 98,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "MEM",
+   "eligibleSlots": [
+    "PF"
+   ]
+  },
+  {
+   "name": "P007",
+   "playerId": 900006,
+   "espn_rank": 54,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "TOR",
+   "eligibleSlots": [
+    "SG",
+    "SF"
+   ]
+  },
+  {
+   "name": "P008",
+   "playerId": 900007,
+   "espn_rank": 40,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "MIN",
+   "eligibleSlots": [
+    "SF",
+    "PF"
+   ]
+  },
+  {
+   "name": "P009",
+   "playerId": 900008,
+   "espn_rank": 88,
+   "injuryStatus": "DTD",
+   "proTeam": "IND",
+   "eligibleSlots": [
+    "PG",
+    "SG"
+   ]
+  },
+  {
+   "name": "P010",
+   "playerId": 900009,
+   "espn_rank": 130,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "SAC",
+   "eligibleSlots": [
+    "PG"
+   ]
+  },
+  {
+   "name": "P011",
+   "playerId": 900010,
+   "espn_rank": 33,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "MIA",
+   "eligibleSlots": [
+    "PG"
+   ]
+  },
+  {
+   "name": "P012",
+   "playerId": 900011,
+   "espn_rank": 51,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "UTA",
+   "eligibleSlots": [
+    "SF",
+    "PF"
+   ]
+  },
+  {
+   "name": "P013",
+   "playerId": 900012,
+   "espn_rank": 143,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "POR",
+   "eligibleSlots": [
+    "SF",
+    "PF"
+   ]
+  },
+  {
+   "name": "P014",
+   "playerId": 900013,
+   "espn_rank": 143,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "POR",
+   "eligibleSlots": [
+    "PG",
+    "SG"
+   ]
+  },
+  {
+   "name": "P015",
+   "playerId": 900014,
+   "espn_rank": 8,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "OKC",
+   "eligibleSlots": [
+    "PG"
+   ]
+  },
+  {
+   "name": "P016",
+   "playerId": 900015,
+   "espn_rank": 10,
+   "injuryStatus": "OUT",
+   "proTeam": "IND",
+   "eligibleSlots": [
+    "PG",
+    "SG"
+   ]
+  },
+  {
+   "name": "P017",
+   "playerId": 900016,
+   "espn_rank": 12,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "NYK",
+   "eligibleSlots": [
+    "C"
+   ]
+  },
+  {
+   "name": "P018",
+   "playerId": 900017,
+   "espn_rank": 44,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "MIA",
+   "eligibleSlots": [
+    "PF",
+    "C"
+   ]
+  },
+  {
+   "name": "P019",
+   "playerId": 900018,
+   "espn_rank": null,
+   "injuryStatus": "OUT",
+   "proTeam": "CHA",
+   "eligibleSlots": [
+    "SG",
+    "SF"
+   ]
+  },
+  {
+   "name": "P020",
+   "playerId": 900019,
+   "espn_rank": 98,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "ORL",
+   "eligibleSlots": [
+    "SF",
+    "PF"
+   ]
+  },
+  {
+   "name": "P021",
+   "playerId": 900020,
+   "espn_rank": 53,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "CHI",
+   "eligibleSlots": [
+    "SG",
+    "SF"
+   ]
+  },
+  {
+   "name": "P022",
+   "playerId": 900021,
+   "espn_rank": 121,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "POR",
+   "eligibleSlots": [
+    "PG"
+   ]
+  },
+  {
+   "name": "P023",
+   "playerId": 900022,
+   "espn_rank": 134,
+   "injuryStatus": "OUT",
+   "proTeam": "UTA",
+   "eligibleSlots": [
+    "PF",
+    "C"
+   ]
+  },
+  {
+   "name": "P024",
+   "playerId": 900023,
+   "espn_rank": 76,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "NYK",
+   "eligibleSlots": [
+    "SF",
+    "PF"
+   ]
+  },
+  {
+   "name": "P025",
+   "playerId": 900024,
+   "espn_rank": 82,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "TOR",
+   "eligibleSlots": [
+    "PG",
+    "SG"
+   ]
+  },
+  {
+   "name": "P026",
+   "playerId": 900025,
+   "espn_rank": 36,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "HOU",
+   "eligibleSlots": [
+    "PF",
+    "C"
+   ]
+  },
+  {
+   "name": "P027",
+   "playerId": 900026,
+   "espn_rank": 66,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "MIL",
+   "eligibleSlots": [
+    "SG",
+    "SF"
+   ]
+  },
+  {
+   "name": "P028",
+   "playerId": 900027,
+   "espn_rank": 79,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "MIN",
+   "eligibleSlots": [
+    "PG"
+   ]
+  },
+  {
+   "name": "P029",
+   "playerId": 900028,
+   "espn_rank": 51,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "TOR",
+   "eligibleSlots": [
+    "SG",
+    "SF"
+   ]
+  },
+  {
+   "name": "P030",
+   "playerId": 900029,
+   "espn_rank": 33,
+   "injuryStatus": "DTD",
+   "proTeam": "PHL",
+   "eligibleSlots": [
+    "SG",
+    "SF"
+   ]
+  },
+  {
+   "name": "P031",
+   "playerId": 900030,
+   "espn_rank": 24,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "IND",
+   "eligibleSlots": [
+    "PF"
+   ]
+  },
+  {
+   "name": "P032",
+   "playerId": 900031,
+   "espn_rank": 221,
+   "injuryStatus": "OUT",
+   "proTeam": "DET",
+   "eligibleSlots": [
+    "C"
+   ]
+  },
+  {
+   "name": "P033",
+   "playerId": 900032,
+   "espn_rank": 36,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "SAS",
+   "eligibleSlots": [
+    "PG",
+    "SG"
+   ]
+  },
+  {
+   "name": "P034",
+   "playerId": 900033,
+   "espn_rank": 299,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "WAS",
+   "eligibleSlots": [
+    "SF"
+   ]
+  },
+  {
+   "name": "P035",
+   "playerId": 900034,
+   "espn_rank": 115,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "LAC",
+   "eligibleSlots": [
+    "PG"
+   ]
+  },
+  {
+   "name": "P036",
+   "playerId": 900035,
+   "espn_rank": 111,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "POR",
+   "eligibleSlots": [
+    "PG"
+   ]
+  },
+  {
+   "name": "P037",
+   "playerId": 900036,
+   "espn_rank": 44,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "SAS",
+   "eligibleSlots": [
+    "PG",
+    "SG"
+   ]
+  },
+  {
+   "name": "P038",
+   "playerId": 900037,
+   "espn_rank": 151,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "GSW",
+   "eligibleSlots": [
+    "PG",
+    "SG"
+   ]
+  },
+  {
+   "name": "P039",
+   "playerId": 900038,
+   "espn_rank": 110,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "PHL",
+   "eligibleSlots": [
+    "SG"
+   ]
+  },
+  {
+   "name": "P040",
+   "playerId": 900039,
+   "espn_rank": 271,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "TOR",
+   "eligibleSlots": [
+    "C"
+   ]
+  },
+  {
+   "name": "P041",
+   "playerId": 900040,
+   "espn_rank": 5,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "LAL",
+   "eligibleSlots": [
+    "PG"
+   ]
+  },
+  {
+   "name": "P042",
+   "playerId": 900041,
+   "espn_rank": 7,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "DAL",
+   "eligibleSlots": [
+    "SF",
+    "PF"
+   ]
+  },
+  {
+   "name": "P043",
+   "playerId": 900042,
+   "espn_rank": 12,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "SAC",
+   "eligibleSlots": [
+    "PF",
+    "C"
+   ]
+  },
+  {
+   "name": "P044",
+   "playerId": 900043,
+   "espn_rank": 98,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "PHO",
+   "eligibleSlots": [
+    "PG",
+    "SG"
+   ]
+  },
+  {
+   "name": "P045",
+   "playerId": 900044,
+   "espn_rank": 41,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "CLE",
+   "eligibleSlots": [
+    "PF",
+    "C"
+   ]
+  },
+  {
+   "name": "P046",
+   "playerId": 900045,
+   "espn_rank": 109,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "BOS",
+   "eligibleSlots": [
+    "PG",
+    "SG"
+   ]
+  },
+  {
+   "name": "P047",
+   "playerId": 900046,
+   "espn_rank": 50,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "BKN",
+   "eligibleSlots": [
+    "SF",
+    "PF"
+   ]
+  },
+  {
+   "name": "P048",
+   "playerId": 900047,
+   "espn_rank": 20,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "ATL",
+   "eligibleSlots": [
+    "PG",
+    "SG"
+   ]
+  },
+  {
+   "name": "P049",
+   "playerId": 900048,
+   "espn_rank": 74,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "HOU",
+   "eligibleSlots": [
+    "PG",
+    "SG"
+   ]
+  },
+  {
+   "name": "P050",
+   "playerId": 900049,
+   "espn_rank": 58,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "SAC",
+   "eligibleSlots": [
+    "SG",
+    "SF"
+   ]
+  },
+  {
+   "name": "P051",
+   "playerId": 900050,
+   "espn_rank": 33,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "CHI",
+   "eligibleSlots": [
+    "SF"
+   ]
+  },
+  {
+   "name": "P052",
+   "playerId": 900051,
+   "espn_rank": 24,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "OKC",
+   "eligibleSlots": [
+    "PG",
+    "SG"
+   ]
+  },
+  {
+   "name": "P053",
+   "playerId": 900052,
+   "espn_rank": 76,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "LAC",
+   "eligibleSlots": [
+    "PG",
+    "SG"
+   ]
+  },
+  {
+   "name": "P054",
+   "playerId": 900053,
+   "espn_rank": 44,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "DET",
+   "eligibleSlots": [
+    "PF",
+    "C"
+   ]
+  },
+  {
+   "name": "P055",
+   "playerId": 900054,
+   "espn_rank": 2,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "MIA",
+   "eligibleSlots": [
+    "PF",
+    "C"
+   ]
+  },
+  {
+   "name": "P056",
+   "playerId": 900055,
+   "espn_rank": 3,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "PHL",
+   "eligibleSlots": [
+    "PG",
+    "SG"
+   ]
+  },
+  {
+   "name": "P057",
+   "playerId": 900056,
+   "espn_rank": 29,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "HOU",
+   "eligibleSlots": [
+    "SG",
+    "SF"
+   ]
+  },
+  {
+   "name": "P058",
+   "playerId": 900057,
+   "espn_rank": 18,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "WAS",
+   "eligibleSlots": [
+    "PG"
+   ]
+  },
+  {
+   "name": "P059",
+   "playerId": 900058,
+   "espn_rank": 66,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "CHA",
+   "eligibleSlots": [
+    "PF",
+    "C"
+   ]
+  },
+  {
+   "name": "P060",
+   "playerId": 900059,
+   "espn_rank": 27,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "SAS",
+   "eligibleSlots": [
+    "PG",
+    "SG"
+   ]
+  },
+  {
+   "name": "P061",
+   "playerId": 900060,
+   "espn_rank": 74,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "CLE",
+   "eligibleSlots": [
+    "C"
+   ]
+  },
+  {
+   "name": "P062",
+   "playerId": 900061,
+   "espn_rank": 56,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "PHL",
+   "eligibleSlots": [
+    "C"
+   ]
+  },
+  {
+   "name": "P063",
+   "playerId": 900062,
+   "espn_rank": 28,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "UTA",
+   "eligibleSlots": [
+    "PG",
+    "SG"
+   ]
+  },
+  {
+   "name": "P064",
+   "playerId": 900063,
+   "espn_rank": null,
+   "injuryStatus": "OUT",
+   "proTeam": "CHA",
+   "eligibleSlots": [
+    "PG",
+    "SG"
+   ]
+  },
+  {
+   "name": "P065",
+   "playerId": 900064,
+   "espn_rank": 60,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "NYK",
+   "eligibleSlots": [
+    "SG",
+    "SF"
+   ]
+  },
+  {
+   "name": "P066",
+   "playerId": 900065,
+   "espn_rank": 62,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "WAS",
+   "eligibleSlots": [
+    "PF",
+    "C"
+   ]
+  },
+  {
+   "name": "P067",
+   "playerId": 900066,
+   "espn_rank": 111,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "DET",
+   "eligibleSlots": [
+    "PF",
+    "C"
+   ]
+  },
+  {
+   "name": "P068",
+   "playerId": 900067,
+   "espn_rank": 143,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "NOP",
+   "eligibleSlots": [
+    "SG",
+    "SF"
+   ]
+  },
+  {
+   "name": "P069",
+   "playerId": 900068,
+   "espn_rank": 10,
+   "injuryStatus": "OUT",
+   "proTeam": "MIN",
+   "eligibleSlots": [
+    "SG",
+    "SF"
+   ]
+  },
+  {
+   "name": "P070",
+   "playerId": 900069,
+   "espn_rank": 38,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "NYK",
+   "eligibleSlots": [
+    "PG"
+   ]
+  },
+  {
+   "name": "P071",
+   "playerId": 900070,
+   "espn_rank": 12,
+   "injuryStatus": "DTD",
+   "proTeam": "HOU",
+   "eligibleSlots": [
+    "C"
+   ]
+  },
+  {
+   "name": "P072",
+   "playerId": 900071,
+   "espn_rank": 94,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "POR",
+   "eligibleSlots": [
+    "SF",
+    "PF"
+   ]
+  },
+  {
+   "name": "P073",
+   "playerId": 900072,
+   "espn_rank": 64,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "BKN",
+   "eligibleSlots": [
+    "PF"
+   ]
+  },
+  {
+   "name": "P074",
+   "playerId": 900073,
+   "espn_rank": 148,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "ORL",
+   "eligibleSlots": [
+    "SG",
+    "SF"
+   ]
+  },
+  {
+   "name": "P075",
+   "playerId": 900074,
+   "espn_rank": 29,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "CHA",
+   "eligibleSlots": [
+    "SG",
+    "SF"
+   ]
+  },
+  {
+   "name": "P076",
+   "playerId": 900075,
+   "espn_rank": 18,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "MIL",
+   "eligibleSlots": [
+    "PG",
+    "SG"
+   ]
+  },
+  {
+   "name": "P077",
+   "playerId": 900076,
+   "espn_rank": 189,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "PHO",
+   "eligibleSlots": [
+    "SF",
+    "PF"
+   ]
+  },
+  {
+   "name": "P078",
+   "playerId": 900077,
+   "espn_rank": 49,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "NOP",
+   "eligibleSlots": [
+    "PF",
+    "C"
+   ]
+  },
+  {
+   "name": "P079",
+   "playerId": 900078,
+   "espn_rank": 82,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "ATL",
+   "eligibleSlots": [
+    "PG",
+    "SG"
+   ]
+  },
+  {
+   "name": "P080",
+   "playerId": 900079,
+   "espn_rank": 211,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "PHO",
+   "eligibleSlots": [
+    "SG",
+    "SF"
+   ]
+  },
+  {
+   "name": "P081",
+   "playerId": 900080,
+   "espn_rank": 279,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "ORL",
+   "eligibleSlots": [
+    "C"
+   ]
+  },
+  {
+   "name": "P082",
+   "playerId": 900081,
+   "espn_rank": 9,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "DEN",
+   "eligibleSlots": [
+    "C"
+   ]
+  },
+  {
+   "name": "P083",
+   "playerId": 900082,
+   "espn_rank": 4,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "ATL",
+   "eligibleSlots": [
+    "PF"
+   ]
+  },
+  {
+   "name": "P084",
+   "playerId": 900083,
+   "espn_rank": 16,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "HOU",
+   "eligibleSlots": [
+    "SF",
+    "PF"
+   ]
+  },
+  {
+   "name": "P085",
+   "playerId": 900084,
+   "espn_rank": 155,
+   "injuryStatus": "OUT",
+   "proTeam": "ORL",
+   "eligibleSlots": [
+    "SF",
+    "PF"
+   ]
+  },
+  {
+   "name": "P086",
+   "playerId": 900085,
+   "espn_rank": 86,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "CHI",
+   "eligibleSlots": [
+    "PG",
+    "SG"
+   ]
+  },
+  {
+   "name": "P087",
+   "playerId": 900086,
+   "espn_rank": 171,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "POR",
+   "eligibleSlots": [
+    "C"
+   ]
+  },
+  {
+   "name": "P088",
+   "playerId": 900087,
+   "espn_rank": 24,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "WAS",
+   "eligibleSlots": [
+    "PF",
+    "C"
+   ]
+  },
+  {
+   "name": "P089",
+   "playerId": 900088,
+   "espn_rank": 42,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "ATL",
+   "eligibleSlots": [
+    "PG",
+    "SG"
+   ]
+  },
+  {
+   "name": "P090",
+   "playerId": 900089,
+   "espn_rank": 43,
+   "injuryStatus": "DTD",
+   "proTeam": "NOP",
+   "eligibleSlots": [
+    "PG",
+    "SG"
+   ]
+  },
+  {
+   "name": "P091",
+   "playerId": 900090,
+   "espn_rank": 21,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "MEM",
+   "eligibleSlots": [
+    "PG",
+    "SG"
+   ]
+  },
+  {
+   "name": "P092",
+   "playerId": 900091,
+   "espn_rank": 139,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "BOS",
+   "eligibleSlots": [
+    "PG",
+    "SG"
+   ]
+  },
+  {
+   "name": "P093",
+   "playerId": 900092,
+   "espn_rank": 44,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "MIN",
+   "eligibleSlots": [
+    "SF",
+    "PF"
+   ]
+  },
+  {
+   "name": "P094",
+   "playerId": 900093,
+   "espn_rank": 22,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "GSW",
+   "eligibleSlots": [
+    "SF",
+    "PF"
+   ]
+  },
+  {
+   "name": "P095",
+   "playerId": 900094,
+   "espn_rank": 56,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "CHA",
+   "eligibleSlots": [
+    "PF",
+    "C"
+   ]
+  },
+  {
+   "name": "P096",
+   "playerId": 900095,
+   "espn_rank": 6,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "DET",
+   "eligibleSlots": [
+    "PG"
+   ]
+  },
+  {
+   "name": "P097",
+   "playerId": 900096,
+   "espn_rank": 17,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "BOS",
+   "eligibleSlots": [
+    "SF",
+    "PF"
+   ]
+  },
+  {
+   "name": "P098",
+   "playerId": 900097,
+   "espn_rank": 39,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "DEN",
+   "eligibleSlots": [
+    "PG"
+   ]
+  },
+  {
+   "name": "P099",
+   "playerId": 900098,
+   "espn_rank": 12,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "LAL",
+   "eligibleSlots": [
+    "PG",
+    "SG"
+   ]
+  },
+  {
+   "name": "P100",
+   "playerId": 900099,
+   "espn_rank": 104,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "CLE",
+   "eligibleSlots": [
+    "PG",
+    "SG"
+   ]
+  },
+  {
+   "name": "P101",
+   "playerId": 900100,
+   "espn_rank": 139,
+   "injuryStatus": "DTD",
+   "proTeam": "UTA",
+   "eligibleSlots": [
+    "SF",
+    "PF"
+   ]
+  },
+  {
+   "name": "P102",
+   "playerId": 900101,
+   "espn_rank": 22,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "LAL",
+   "eligibleSlots": [
+    "C"
+   ]
+  },
+  {
+   "name": "P103",
+   "playerId": 900102,
+   "espn_rank": 54,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "PHL",
+   "eligibleSlots": [
+    "SF",
+    "PF"
+   ]
+  },
+  {
+   "name": "P104",
+   "playerId": 900103,
+   "espn_rank": 66,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "DAL",
+   "eligibleSlots": [
+    "PG"
+   ]
+  },
+  {
+   "name": "P105",
+   "playerId": 900104,
+   "espn_rank": 104,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "ATL",
+   "eligibleSlots": [
+    "C"
+   ]
+  },
+  {
+   "name": "P106",
+   "playerId": 900105,
+   "espn_rank": 48,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "BOS",
+   "eligibleSlots": [
+    "SF",
+    "PF"
+   ]
+  },
+  {
+   "name": "P107",
+   "playerId": 900106,
+   "espn_rank": 60,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "SAS",
+   "eligibleSlots": [
+    "SF",
+    "PF"
+   ]
+  },
+  {
+   "name": "P108",
+   "playerId": 900107,
+   "espn_rank": 86,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "ORL",
+   "eligibleSlots": [
+    "C"
+   ]
+  },
+  {
+   "name": "P109",
+   "playerId": 900108,
+   "espn_rank": 249,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "NYK",
+   "eligibleSlots": [
+    "SG",
+    "SF"
+   ]
+  },
+  {
+   "name": "P110",
+   "playerId": 900109,
+   "espn_rank": 166,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "MIN",
+   "eligibleSlots": [
+    "C"
+   ]
+  },
+  {
+   "name": "P111",
+   "playerId": 900110,
+   "espn_rank": 217,
+   "injuryStatus": "OUT",
+   "proTeam": "IND",
+   "eligibleSlots": [
+    "C"
+   ]
+  },
+  {
+   "name": "P112",
+   "playerId": 900111,
+   "espn_rank": 132,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "DET",
+   "eligibleSlots": [
+    "SF",
+    "PF"
+   ]
+  },
+  {
+   "name": "P113",
+   "playerId": 900112,
+   "espn_rank": 118,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "NOP",
+   "eligibleSlots": [
+    "PF",
+    "C"
+   ]
+  },
+  {
+   "name": "P114",
+   "playerId": 900113,
+   "espn_rank": 127,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "CHI",
+   "eligibleSlots": [
+    "SF",
+    "PF"
+   ]
+  },
+  {
+   "name": "P115",
+   "playerId": 900114,
+   "espn_rank": 176,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "DEN",
+   "eligibleSlots": [
+    "SF",
+    "PF"
+   ]
+  },
+  {
+   "name": "P116",
+   "playerId": 900115,
+   "espn_rank": 72,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "MIN",
+   "eligibleSlots": [
+    "PG",
+    "SG"
+   ]
+  },
+  {
+   "name": "P117",
+   "playerId": 900116,
+   "espn_rank": 118,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "MIL",
+   "eligibleSlots": [
+    "C"
+   ]
+  },
+  {
+   "name": "P118",
+   "playerId": 900117,
+   "espn_rank": null,
+   "injuryStatus": "OUT",
+   "proTeam": "LAC",
+   "eligibleSlots": [
+    "SF",
+    "PF"
+   ]
+  },
+  {
+   "name": "P119",
+   "playerId": 900118,
+   "espn_rank": 106,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "UTA",
+   "eligibleSlots": [
+    "PG",
+    "SG"
+   ]
+  },
+  {
+   "name": "P120",
+   "playerId": 900119,
+   "espn_rank": 127,
+   "injuryStatus": "OUT",
+   "proTeam": "HOU",
+   "eligibleSlots": [
+    "PG",
+    "SG"
+   ]
+  },
+  {
+   "name": "P121",
+   "playerId": 900120,
+   "espn_rank": 111,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "MIL",
+   "eligibleSlots": [
+    "PG",
+    "SG"
+   ]
+  },
+  {
+   "name": "P122",
+   "playerId": 900121,
+   "espn_rank": 177,
+   "injuryStatus": "OUT",
+   "proTeam": "OKC",
+   "eligibleSlots": [
+    "SF",
+    "PF"
+   ]
+  },
+  {
+   "name": "P123",
+   "playerId": 900122,
+   "espn_rank": 137,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "MIA",
+   "eligibleSlots": [
+    "SF",
+    "PF"
+   ]
+  },
+  {
+   "name": "P124",
+   "playerId": 900123,
+   "espn_rank": 196,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "MEM",
+   "eligibleSlots": [
+    "C"
+   ]
+  },
+  {
+   "name": "P125",
+   "playerId": 900124,
+   "espn_rank": 106,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "CLE",
+   "eligibleSlots": [
+    "SF",
+    "PF"
+   ]
+  },
+  {
+   "name": "P126",
+   "playerId": 900125,
+   "espn_rank": 126,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "DEN",
+   "eligibleSlots": [
+    "PF"
+   ]
+  },
+  {
+   "name": "P127",
+   "playerId": 900126,
+   "espn_rank": 146,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "MEM",
+   "eligibleSlots": [
+    "SG",
+    "SF"
+   ]
+  },
+  {
+   "name": "P128",
+   "playerId": 900127,
+   "espn_rank": 127,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "MIL",
+   "eligibleSlots": [
+    "C"
+   ]
+  },
+  {
+   "name": "P129",
+   "playerId": 900128,
+   "espn_rank": 63,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "WAS",
+   "eligibleSlots": [
+    "SG",
+    "SF"
+   ]
+  },
+  {
+   "name": "P130",
+   "playerId": 900129,
+   "espn_rank": null,
+   "injuryStatus": "OUT",
+   "proTeam": "SAS",
+   "eligibleSlots": [
+    "SF",
+    "PF"
+   ]
+  },
+  {
+   "name": "P131",
+   "playerId": 900130,
+   "espn_rank": null,
+   "injuryStatus": "OUT",
+   "proTeam": "GSW",
+   "eligibleSlots": [
+    "PF",
+    "C"
+   ]
+  },
+  {
+   "name": "P132",
+   "playerId": 900131,
+   "espn_rank": null,
+   "injuryStatus": "OUT",
+   "proTeam": "CHI",
+   "eligibleSlots": [
+    "C"
+   ]
+  },
+  {
+   "name": "P133",
+   "playerId": 900132,
+   "espn_rank": null,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "FA",
+   "eligibleSlots": [
+    "PG",
+    "SG"
+   ]
+  },
+  {
+   "name": "P053",
+   "playerId": 900052,
+   "espn_rank": 76,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "LAC",
+   "eligibleSlots": [
+    "PG",
+    "SG"
+   ]
+  },
+  {
+   "name": "P134",
+   "playerId": 900133,
+   "espn_rank": 97,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "OKC",
+   "eligibleSlots": [
+    "C"
+   ]
+  },
+  {
+   "name": "P135",
+   "playerId": 900134,
+   "espn_rank": 268,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "NOP",
+   "eligibleSlots": [
+    "PG",
+    "SG"
+   ]
+  },
+  {
+   "name": "P136",
+   "playerId": 900135,
+   "espn_rank": 66,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "SAS",
+   "eligibleSlots": [
+    "SG",
+    "SF"
+   ]
+  },
+  {
+   "name": "P137",
+   "playerId": 900136,
+   "espn_rank": 242,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "ORL",
+   "eligibleSlots": [
+    "PG",
+    "SG"
+   ]
+  },
+  {
+   "name": "P138",
+   "playerId": 900137,
+   "espn_rank": 310,
+   "injuryStatus": "OUT",
+   "proTeam": "SAC",
+   "eligibleSlots": [
+    "SF",
+    "PF"
+   ]
+  },
+  {
+   "name": "P139",
+   "playerId": 900138,
+   "espn_rank": 115,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "LAL",
+   "eligibleSlots": [
+    "SG",
+    "SF"
+   ]
+  },
+  {
+   "name": "P140",
+   "playerId": 900139,
+   "espn_rank": 181,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "OKC",
+   "eligibleSlots": [
+    "PG",
+    "SG"
+   ]
+  },
+  {
+   "name": "P141",
+   "playerId": 900140,
+   "espn_rank": 235,
+   "injuryStatus": "OUT",
+   "proTeam": "BKN",
+   "eligibleSlots": [
+    "PG",
+    "SG"
+   ]
+  },
+  {
+   "name": "P142",
+   "playerId": 900141,
+   "espn_rank": 230,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "PHO",
+   "eligibleSlots": [
+    "PG"
+   ]
+  },
+  {
+   "name": "P143",
+   "playerId": 900142,
+   "espn_rank": null,
+   "injuryStatus": "OUT",
+   "proTeam": "GSW",
+   "eligibleSlots": [
+    "SG",
+    "SF"
+   ]
+  },
+  {
+   "name": "P144",
+   "playerId": 900143,
+   "espn_rank": 64,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "DAL",
+   "eligibleSlots": [
+    "C"
+   ]
+  },
+  {
+   "name": "P145",
+   "playerId": 900144,
+   "espn_rank": 189,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "PHO",
+   "eligibleSlots": [
+    "SG",
+    "SF"
+   ]
+  },
+  {
+   "name": "P146",
+   "playerId": 900145,
+   "espn_rank": 72,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "DET",
+   "eligibleSlots": [
+    "SG",
+    "SF"
+   ]
+  },
+  {
+   "name": "P147",
+   "playerId": 900146,
+   "espn_rank": 76,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "ATL",
+   "eligibleSlots": [
+    "SG",
+    "SF"
+   ]
+  },
+  {
+   "name": "P148",
+   "playerId": 900147,
+   "espn_rank": 115,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "LAC",
+   "eligibleSlots": [
+    "C"
+   ]
+  },
+  {
+   "name": "P149",
+   "playerId": 900148,
+   "espn_rank": 66,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "DAL",
+   "eligibleSlots": [
+    "SF",
+    "PF"
+   ]
+  },
+  {
+   "name": "P150",
+   "playerId": 900149,
+   "espn_rank": 95,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "MEM",
+   "eligibleSlots": [
+    "SG",
+    "SF"
+   ]
+  },
+  {
+   "name": "P151",
+   "playerId": 900150,
+   "espn_rank": 204,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "LAL",
+   "eligibleSlots": [
+    "PG",
+    "SG"
+   ]
+  },
+  {
+   "name": "P152",
+   "playerId": 900151,
+   "espn_rank": 192,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "GSW",
+   "eligibleSlots": [
+    "PF",
+    "C"
+   ]
+  },
+  {
+   "name": "P153",
+   "playerId": 900152,
+   "espn_rank": 134,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "SAC",
+   "eligibleSlots": [
+    "PF",
+    "C"
+   ]
+  },
+  {
+   "name": "P154",
+   "playerId": 900153,
+   "espn_rank": 171,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "BOS",
+   "eligibleSlots": [
+    "C"
+   ]
+  },
+  {
+   "name": "P155",
+   "playerId": 900154,
+   "espn_rank": 102,
+   "injuryStatus": "OUT",
+   "proTeam": "OKC",
+   "eligibleSlots": [
+    "PG",
+    "SG"
+   ]
+  },
+  {
+   "name": "P156",
+   "playerId": 900155,
+   "espn_rank": 155,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "NOP",
+   "eligibleSlots": [
+    "SF",
+    "PF"
+   ]
+  },
+  {
+   "name": "P157",
+   "playerId": 900156,
+   "espn_rank": 186,
+   "injuryStatus": "OUT",
+   "proTeam": "ORL",
+   "eligibleSlots": [
+    "PG",
+    "SG"
+   ]
+  },
+  {
+   "name": "P158",
+   "playerId": 900157,
+   "espn_rank": 59,
+   "injuryStatus": "DTD",
+   "proTeam": "CHI",
+   "eligibleSlots": [
+    "PF",
+    "C"
+   ]
+  },
+  {
+   "name": "P159",
+   "playerId": 900158,
+   "espn_rank": 123,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "DEN",
+   "eligibleSlots": [
+    "SG",
+    "SF"
+   ]
+  },
+  {
+   "name": "P160",
+   "playerId": 900159,
+   "espn_rank": 79,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "MIA",
+   "eligibleSlots": [
+    "PF",
+    "C"
+   ]
+  },
+  {
+   "name": "P161",
+   "playerId": 900160,
+   "espn_rank": 84,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "TOR",
+   "eligibleSlots": [
+    "SG"
+   ]
+  },
+  {
+   "name": "P162",
+   "playerId": 900161,
+   "espn_rank": 98,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "CHA",
+   "eligibleSlots": [
+    "PG",
+    "SG"
+   ]
+  },
+  {
+   "name": "P163",
+   "playerId": 900162,
+   "espn_rank": 139,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "LAC",
+   "eligibleSlots": [
+    "PG",
+    "SG"
+   ]
+  },
+  {
+   "name": "P164",
+   "playerId": 900163,
+   "espn_rank": 88,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "UTA",
+   "eligibleSlots": [
+    "C"
+   ]
+  },
+  {
+   "name": "P165",
+   "playerId": 900164,
+   "espn_rank": 230,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "BOS",
+   "eligibleSlots": [
+    "C"
+   ]
+  },
+  {
+   "name": "P166",
+   "playerId": 900165,
+   "espn_rank": 196,
+   "injuryStatus": "OUT",
+   "proTeam": "NOP",
+   "eligibleSlots": [
+    "C"
+   ]
+  },
+  {
+   "name": "P167",
+   "playerId": 900166,
+   "espn_rank": 325,
+   "injuryStatus": "DTD",
+   "proTeam": "PHO",
+   "eligibleSlots": [
+    "PF"
+   ]
+  },
+  {
+   "name": "P168",
+   "playerId": 900167,
+   "espn_rank": 111,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "MIN",
+   "eligibleSlots": [
+    "SG"
+   ]
+  },
+  {
+   "name": "P169",
+   "playerId": 900168,
+   "espn_rank": 81,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "IND",
+   "eligibleSlots": [
+    "PF"
+   ]
+  },
+  {
+   "name": "P170",
+   "playerId": 900169,
+   "espn_rank": 225,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "MEM",
+   "eligibleSlots": [
+    "PG",
+    "SG"
+   ]
+  },
+  {
+   "name": "P171",
+   "playerId": 900170,
+   "espn_rank": 272,
+   "injuryStatus": "DTD",
+   "proTeam": "LAC",
+   "eligibleSlots": [
+    "SF",
+    "PF"
+   ]
+  },
+  {
+   "name": "P172",
+   "playerId": 900171,
+   "espn_rank": 166,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "MEM",
+   "eligibleSlots": [
+    "PF"
+   ]
+  },
+  {
+   "name": "P173",
+   "playerId": 900172,
+   "espn_rank": 95,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "MIL",
+   "eligibleSlots": [
+    "SF",
+    "PF"
+   ]
+  },
+  {
+   "name": "P174",
+   "playerId": 900173,
+   "espn_rank": 214,
+   "injuryStatus": "DTD",
+   "proTeam": "NOP",
+   "eligibleSlots": [
+    "PG",
+    "SG"
+   ]
+  },
+  {
+   "name": "P175",
+   "playerId": 900174,
+   "espn_rank": 313,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "SAC",
+   "eligibleSlots": [
+    "PG",
+    "SG"
+   ]
+  },
+  {
+   "name": "P176",
+   "playerId": 900175,
+   "espn_rank": 182,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "BKN",
+   "eligibleSlots": [
+    "C"
+   ]
+  },
+  {
+   "name": "P177",
+   "playerId": 900176,
+   "espn_rank": 151,
+   "injuryStatus": "DTD",
+   "proTeam": "DAL",
+   "eligibleSlots": [
+    "SF",
+    "PF"
+   ]
+  },
+  {
+   "name": "P178",
+   "playerId": 900177,
+   "espn_rank": 148,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "NYK",
+   "eligibleSlots": [
+    "C"
+   ]
+  },
+  {
+   "name": "P179",
+   "playerId": 900178,
+   "espn_rank": 177,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "PHL",
+   "eligibleSlots": [
+    "PG",
+    "SG"
+   ]
+  },
+  {
+   "name": "P180",
+   "playerId": 900179,
+   "espn_rank": 93,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "HOU",
+   "eligibleSlots": [
+    "SF",
+    "PF"
+   ]
+  },
+  {
+   "name": "P181",
+   "playerId": 900180,
+   "espn_rank": 204,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "TOR",
+   "eligibleSlots": [
+    "PF"
+   ]
+  },
+  {
+   "name": "P182",
+   "playerId": 900181,
+   "espn_rank": 255,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "NOP",
+   "eligibleSlots": [
+    "SG",
+    "SF"
+   ]
+  },
+  {
+   "name": "P183",
+   "playerId": 900182,
+   "espn_rank": 139,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "SAS",
+   "eligibleSlots": [
+    "SF",
+    "PF"
+   ]
+  },
+  {
+   "name": "P184",
+   "playerId": 900183,
+   "espn_rank": 182,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "WAS",
+   "eligibleSlots": [
+    "C"
+   ]
+  },
+  {
+   "name": "P185",
+   "playerId": 900184,
+   "espn_rank": 66,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "DAL",
+   "eligibleSlots": [
+    "SF"
+   ]
+  },
+  {
+   "name": "P186",
+   "playerId": 900185,
+   "espn_rank": 242,
+   "injuryStatus": "OUT",
+   "proTeam": "OKC",
+   "eligibleSlots": [
+    "PG",
+    "SG"
+   ]
+  },
+  {
+   "name": "P187",
+   "playerId": 900186,
+   "espn_rank": null,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "OKC",
+   "eligibleSlots": [
+    "C"
+   ]
+  },
+  {
+   "name": "P188",
+   "playerId": 900187,
+   "espn_rank": 170,
+   "injuryStatus": "OUT",
+   "proTeam": "POR",
+   "eligibleSlots": [
+    "C"
+   ]
+  },
+  {
+   "name": "P189",
+   "playerId": 900188,
+   "espn_rank": 121,
+   "injuryStatus": "DTD",
+   "proTeam": "CHA",
+   "eligibleSlots": [
+    "PG"
+   ]
+  },
+  {
+   "name": "P190",
+   "playerId": 900189,
+   "espn_rank": 238,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "MIA",
+   "eligibleSlots": [
+    "SG",
+    "SF"
+   ]
+  },
+  {
+   "name": "P191",
+   "playerId": 900190,
+   "espn_rank": 189,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "SAC",
+   "eligibleSlots": [
+    "SF",
+    "PF"
+   ]
+  },
+  {
+   "name": "P192",
+   "playerId": 900191,
+   "espn_rank": null,
+   "injuryStatus": "OUT",
+   "proTeam": "IND",
+   "eligibleSlots": [
+    "PG"
+   ]
+  },
+  {
+   "name": "P193",
+   "playerId": 900192,
+   "espn_rank": 346,
+   "injuryStatus": "OUT",
+   "proTeam": "DEN",
+   "eligibleSlots": [
+    "SF",
+    "PF"
+   ]
+  },
+  {
+   "name": "P194",
+   "playerId": 900193,
+   "espn_rank": null,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "DET",
+   "eligibleSlots": [
+    "PG"
+   ]
+  },
+  {
+   "name": "P195",
+   "playerId": 900194,
+   "espn_rank": null,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "MIA",
+   "eligibleSlots": [
+    "SG",
+    "SF"
+   ]
+  },
+  {
+   "name": "P196",
+   "playerId": 900195,
+   "espn_rank": 159,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "LAL",
+   "eligibleSlots": [
+    "SF",
+    "PF"
+   ]
+  },
+  {
+   "name": "P197",
+   "playerId": 900196,
+   "espn_rank": 125,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "ORL",
+   "eligibleSlots": [
+    "SF",
+    "PF"
+   ]
+  },
+  {
+   "name": "P198",
+   "playerId": 900197,
+   "espn_rank": null,
+   "injuryStatus": "OUT",
+   "proTeam": "POR",
+   "eligibleSlots": [
+    "SG",
+    "SF"
+   ]
+  },
+  {
+   "name": "P199",
+   "playerId": 900198,
+   "espn_rank": 92,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "LAC",
+   "eligibleSlots": [
+    "SF",
+    "PF"
+   ]
+  },
+  {
+   "name": "P200",
+   "playerId": 900199,
+   "espn_rank": 319,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "POR",
+   "eligibleSlots": [
+    "PG",
+    "SG"
+   ]
+  },
+  {
+   "name": "P201",
+   "playerId": 900200,
+   "espn_rank": 235,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "BKN",
+   "eligibleSlots": [
+    "PG"
+   ]
+  },
+  {
+   "name": "P202",
+   "playerId": 900201,
+   "espn_rank": 90,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "WAS",
+   "eligibleSlots": [
+    "SG",
+    "SF"
+   ]
+  },
+  {
+   "name": "P203",
+   "playerId": 900202,
+   "espn_rank": null,
+   "injuryStatus": "OUT",
+   "proTeam": "PHO",
+   "eligibleSlots": [
+    "C"
+   ]
+  },
+  {
+   "name": "P204",
+   "playerId": 900203,
+   "espn_rank": 159,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "ATL",
+   "eligibleSlots": [
+    "SG",
+    "PG"
+   ]
+  },
+  {
+   "name": "P205",
+   "playerId": 900204,
+   "espn_rank": null,
+   "injuryStatus": "OUT",
+   "proTeam": "UTA",
+   "eligibleSlots": [
+    "C"
+   ]
+  },
+  {
+   "name": "P206",
+   "playerId": 900205,
+   "espn_rank": null,
+   "injuryStatus": "OUT",
+   "proTeam": "DAL",
+   "eligibleSlots": [
+    "SF",
+    "PF"
+   ]
+  },
+  {
+   "name": "P207",
+   "playerId": 900206,
+   "espn_rank": null,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "UTA",
+   "eligibleSlots": [
+    "C"
+   ]
+  },
+  {
+   "name": "P208",
+   "playerId": 900207,
+   "espn_rank": 217,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "PHO",
+   "eligibleSlots": [
+    "C"
+   ]
+  },
+  {
+   "name": "P209",
+   "playerId": 900208,
+   "espn_rank": 136,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "CHI",
+   "eligibleSlots": [
+    "PG"
+   ]
+  },
+  {
+   "name": "P210",
+   "playerId": 900209,
+   "espn_rank": 123,
+   "injuryStatus": "DTD",
+   "proTeam": "LAL",
+   "eligibleSlots": [
+    "SG",
+    "SF"
+   ]
+  },
+  {
+   "name": "P211",
+   "playerId": 900210,
+   "espn_rank": null,
+   "injuryStatus": "OUT",
+   "proTeam": "DAL",
+   "eligibleSlots": [
+    "C"
+   ]
+  },
+  {
+   "name": "P212",
+   "playerId": 900211,
+   "espn_rank": 106,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "LAL",
+   "eligibleSlots": [
+    "SF"
+   ]
+  },
+  {
+   "name": "P213",
+   "playerId": 900212,
+   "espn_rank": null,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "FA",
+   "eligibleSlots": [
+    "SG",
+    "SF"
+   ]
+  },
+  {
+   "name": "P214",
+   "playerId": 900213,
+   "espn_rank": 164,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "IND",
+   "eligibleSlots": [
+    "SG",
+    "SF"
+   ]
+  },
+  {
+   "name": "P215",
+   "playerId": 900214,
+   "espn_rank": null,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "FA",
+   "eligibleSlots": [
+    "PG",
+    "SG"
+   ]
+  },
+  {
+   "name": "P216",
+   "playerId": 900215,
+   "espn_rank": null,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "DEN",
+   "eligibleSlots": [
+    "SF",
+    "PF"
+   ]
+  },
+  {
+   "name": "P217",
+   "playerId": 900216,
+   "espn_rank": null,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "LAL",
+   "eligibleSlots": [
+    "PF",
+    "C"
+   ]
+  },
+  {
+   "name": "P218",
+   "playerId": 900217,
+   "espn_rank": 408,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "UTA",
+   "eligibleSlots": [
+    "PF",
+    "C"
+   ]
+  },
+  {
+   "name": "P219",
+   "playerId": 900218,
+   "espn_rank": 171,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "CLE",
+   "eligibleSlots": [
+    "SG",
+    "SF"
+   ]
+  },
+  {
+   "name": "P220",
+   "playerId": 900219,
+   "espn_rank": 155,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "LAC",
+   "eligibleSlots": [
+    "PF",
+    "C"
+   ]
+  },
+  {
+   "name": "P221",
+   "playerId": 900220,
+   "espn_rank": 227,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "MIA",
+   "eligibleSlots": [
+    "SG",
+    "SF"
+   ]
+  },
+  {
+   "name": "P222",
+   "playerId": 900221,
+   "espn_rank": 177,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "UTA",
+   "eligibleSlots": [
+    "PG"
+   ]
+  },
+  {
+   "name": "P223",
+   "playerId": 900222,
+   "espn_rank": 264,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "MEM",
+   "eligibleSlots": [
+    "PF",
+    "C"
+   ]
+  },
+  {
+   "name": "P224",
+   "playerId": 900223,
+   "espn_rank": null,
+   "injuryStatus": "DTD",
+   "proTeam": "CLE",
+   "eligibleSlots": [
+    "SG"
+   ]
+  },
+  {
+   "name": "P225",
+   "playerId": 900224,
+   "espn_rank": 171,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "ATL",
+   "eligibleSlots": [
+    "SG",
+    "SF"
+   ]
+  },
+  {
+   "name": "P226",
+   "playerId": 900225,
+   "espn_rank": 233,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "DAL",
+   "eligibleSlots": [
+    "PF",
+    "C"
+   ]
+  },
+  {
+   "name": "P227",
+   "playerId": 900226,
+   "espn_rank": 200,
+   "injuryStatus": "DTD",
+   "proTeam": "IND",
+   "eligibleSlots": [
+    "SG",
+    "SF"
+   ]
+  },
+  {
+   "name": "P228",
+   "playerId": 900227,
+   "espn_rank": 392,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "LAL",
+   "eligibleSlots": [
+    "PG",
+    "SG"
+   ]
+  },
+  {
+   "name": "P229",
+   "playerId": 900228,
+   "espn_rank": 137,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "PHL",
+   "eligibleSlots": [
+    "SG",
+    "SF"
+   ]
+  },
+  {
+   "name": "P230",
+   "playerId": 900229,
+   "espn_rank": 146,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "BKN",
+   "eligibleSlots": [
+    "SG",
+    "SF"
+   ]
+  },
+  {
+   "name": "P231",
+   "playerId": 900230,
+   "espn_rank": 192,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "MEM",
+   "eligibleSlots": [
+    "PG",
+    "SG"
+   ]
+  },
+  {
+   "name": "P232",
+   "playerId": 900231,
+   "espn_rank": 196,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "BOS",
+   "eligibleSlots": [
+    "SF",
+    "PF"
+   ]
+  },
+  {
+   "name": "P233",
+   "playerId": 900232,
+   "espn_rank": null,
+   "injuryStatus": "OUT",
+   "proTeam": "WAS",
+   "eligibleSlots": [
+    "SF",
+    "PF"
+   ]
+  },
+  {
+   "name": "P234",
+   "playerId": 900233,
+   "espn_rank": 120,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "GSW",
+   "eligibleSlots": [
+    "PG",
+    "SG"
+   ]
+  },
+  {
+   "name": "P235",
+   "playerId": 900234,
+   "espn_rank": 349,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "BKN",
+   "eligibleSlots": [
+    "PF",
+    "C"
+   ]
+  },
+  {
+   "name": "P236",
+   "playerId": 900235,
+   "espn_rank": 204,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "MIL",
+   "eligibleSlots": [
+    "SG"
+   ]
+  },
+  {
+   "name": "P237",
+   "playerId": 900236,
+   "espn_rank": 148,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "DAL",
+   "eligibleSlots": [
+    "SG"
+   ]
+  },
+  {
+   "name": "P238",
+   "playerId": 900237,
+   "espn_rank": 132,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "MIL",
+   "eligibleSlots": [
+    "PG"
+   ]
+  },
+  {
+   "name": "P239",
+   "playerId": 900238,
+   "espn_rank": 217,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "TOR",
+   "eligibleSlots": [
+    "PG"
+   ]
+  },
+  {
+   "name": "P240",
+   "playerId": 900239,
+   "espn_rank": 221,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "WAS",
+   "eligibleSlots": [
+    "PG",
+    "SG"
+   ]
+  },
+  {
+   "name": "P241",
+   "playerId": 900240,
+   "espn_rank": 192,
+   "injuryStatus": "DTD",
+   "proTeam": "WAS",
+   "eligibleSlots": [
+    "SG"
+   ]
+  },
+  {
+   "name": "P242",
+   "playerId": 900241,
+   "espn_rank": 159,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "CHA",
+   "eligibleSlots": [
+    "C"
+   ]
+  },
+  {
+   "name": "P243",
+   "playerId": 900242,
+   "espn_rank": 261,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "OKC",
+   "eligibleSlots": [
+    "PF",
+    "C"
+   ]
+  },
+  {
+   "name": "P244",
+   "playerId": 900243,
+   "espn_rank": 235,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "POR",
+   "eligibleSlots": [
+    "SG"
+   ]
+  },
+  {
+   "name": "P245",
+   "playerId": 900244,
+   "espn_rank": null,
+   "injuryStatus": "OUT",
+   "proTeam": "MIN",
+   "eligibleSlots": [
+    "PG",
+    "SG"
+   ]
+  },
+  {
+   "name": "P246",
+   "playerId": 900245,
+   "espn_rank": null,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "FA",
+   "eligibleSlots": [
+    "PG"
+   ]
+  },
+  {
+   "name": "P247",
+   "playerId": 900246,
+   "espn_rank": null,
+   "injuryStatus": "OUT",
+   "proTeam": "LAC",
+   "eligibleSlots": [
+    "SG",
+    "SF"
+   ]
+  },
+  {
+   "name": "P248",
+   "playerId": 900247,
+   "espn_rank": 295,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "MEM",
+   "eligibleSlots": [
+    "PF"
+   ]
+  },
+  {
+   "name": "P249",
+   "playerId": 900248,
+   "espn_rank": 282,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "NOP",
+   "eligibleSlots": [
+    "SF",
+    "PF"
+   ]
+  },
+  {
+   "name": "P250",
+   "playerId": 900249,
+   "espn_rank": 227,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "DAL",
+   "eligibleSlots": [
+    "PG",
+    "SG"
+   ]
+  },
+  {
+   "name": "P251",
+   "playerId": 900250,
+   "espn_rank": null,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "IND",
+   "eligibleSlots": [
+    "C"
+   ]
+  },
+  {
+   "name": "P252",
+   "playerId": 900251,
+   "espn_rank": 253,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "CHA",
+   "eligibleSlots": [
+    "SF",
+    "PF"
+   ]
+  },
+  {
+   "name": "P253",
+   "playerId": 900252,
+   "espn_rank": 177,
+   "injuryStatus": "DTD",
+   "proTeam": "GSW",
+   "eligibleSlots": [
+    "SF"
+   ]
+  },
+  {
+   "name": "P254",
+   "playerId": 900253,
+   "espn_rank": 211,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "CLE",
+   "eligibleSlots": [
+    "SG"
+   ]
+  },
+  {
+   "name": "P255",
+   "playerId": 900254,
+   "espn_rank": 261,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "LAC",
+   "eligibleSlots": [
+    "SG",
+    "SF"
+   ]
+  },
+  {
+   "name": "P256",
+   "playerId": 900255,
+   "espn_rank": 185,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "UTA",
+   "eligibleSlots": [
+    "SG",
+    "SF"
+   ]
+  },
+  {
+   "name": "P257",
+   "playerId": 900256,
+   "espn_rank": 202,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "NYK",
+   "eligibleSlots": [
+    "PG",
+    "SG"
+   ]
+  },
+  {
+   "name": "P258",
+   "playerId": 900257,
+   "espn_rank": 192,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "DET",
+   "eligibleSlots": [
+    "SG",
+    "SF"
+   ]
+  },
+  {
+   "name": "P259",
+   "playerId": 900258,
+   "espn_rank": null,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "ATL",
+   "eligibleSlots": [
+    "C"
+   ]
+  },
+  {
+   "name": "P260",
+   "playerId": 900259,
+   "espn_rank": null,
+   "injuryStatus": "OUT",
+   "proTeam": "SAC",
+   "eligibleSlots": [
+    "C"
+   ]
+  },
+  {
+   "name": "P261",
+   "playerId": 900260,
+   "espn_rank": null,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "FA",
+   "eligibleSlots": [
+    "PG"
+   ]
+  },
+  {
+   "name": "P262",
+   "playerId": 900261,
+   "espn_rank": null,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "MIN",
+   "eligibleSlots": [
+    "C"
+   ]
+  },
+  {
+   "name": "P263",
+   "playerId": 900262,
+   "espn_rank": 216,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "BKN",
+   "eligibleSlots": [
+    "PG"
+   ]
+  },
+  {
+   "name": "P264",
+   "playerId": 900263,
+   "espn_rank": 272,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "MIA",
+   "eligibleSlots": [
+    "PF"
+   ]
+  },
+  {
+   "name": "P265",
+   "playerId": 900264,
+   "espn_rank": 293,
+   "injuryStatus": "OUT",
+   "proTeam": "NYK",
+   "eligibleSlots": [
+    "PG"
+   ]
+  },
+  {
+   "name": "P266",
+   "playerId": 900265,
+   "espn_rank": 221,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "GSW",
+   "eligibleSlots": [
+    "PF",
+    "C"
+   ]
+  },
+  {
+   "name": "P267",
+   "playerId": 900266,
+   "espn_rank": 242,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "PHL",
+   "eligibleSlots": [
+    "PF"
+   ]
+  },
+  {
+   "name": "P268",
+   "playerId": 900267,
+   "espn_rank": 303,
+   "injuryStatus": "OUT",
+   "proTeam": "HOU",
+   "eligibleSlots": [
+    "PG",
+    "SG"
+   ]
+  },
+  {
+   "name": "P269",
+   "playerId": 900268,
+   "espn_rank": 266,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "PHO",
+   "eligibleSlots": [
+    "SG"
+   ]
+  },
+  {
+   "name": "P270",
+   "playerId": 900269,
+   "espn_rank": 242,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "MIN",
+   "eligibleSlots": [
+    "PG"
+   ]
+  },
+  {
+   "name": "P271",
+   "playerId": 900270,
+   "espn_rank": 288,
+   "injuryStatus": "DTD",
+   "proTeam": "DET",
+   "eligibleSlots": [
+    "SG"
+   ]
+  },
+  {
+   "name": "P272",
+   "playerId": 900271,
+   "espn_rank": null,
+   "injuryStatus": "OUT",
+   "proTeam": "SAC",
+   "eligibleSlots": [
+    "PG"
+   ]
+  },
+  {
+   "name": "P273",
+   "playerId": 900272,
+   "espn_rank": null,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "TOR",
+   "eligibleSlots": [
+    "SF"
+   ]
+  },
+  {
+   "name": "P274",
+   "playerId": 900273,
+   "espn_rank": null,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "GSW",
+   "eligibleSlots": [
+    "PG",
+    "SG"
+   ]
+  },
+  {
+   "name": "P275",
+   "playerId": 900274,
+   "espn_rank": null,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "SAS",
+   "eligibleSlots": [
+    "SF"
+   ]
+  },
+  {
+   "name": "P276",
+   "playerId": 900275,
+   "espn_rank": null,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "PHL",
+   "eligibleSlots": [
+    "PG",
+    "SG"
+   ]
+  },
+  {
+   "name": "P277",
+   "playerId": 900276,
+   "espn_rank": 162,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "CHI",
+   "eligibleSlots": [
+    "SF"
+   ]
+  },
+  {
+   "name": "P278",
+   "playerId": 900277,
+   "espn_rank": 214,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "DET",
+   "eligibleSlots": [
+    "SF",
+    "PF"
+   ]
+  },
+  {
+   "name": "P279",
+   "playerId": 900278,
+   "espn_rank": null,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "DET",
+   "eligibleSlots": [
+    "SF"
+   ]
+  },
+  {
+   "name": "P280",
+   "playerId": 900279,
+   "espn_rank": 211,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "BOS",
+   "eligibleSlots": [
+    "SF"
+   ]
+  },
+  {
+   "name": "P281",
+   "playerId": 900280,
+   "espn_rank": 274,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "SAS",
+   "eligibleSlots": [
+    "C"
+   ]
+  },
+  {
+   "name": "P282",
+   "playerId": 900281,
+   "espn_rank": null,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "NOP",
+   "eligibleSlots": [
+    "C"
+   ]
+  },
+  {
+   "name": "P283",
+   "playerId": 900282,
+   "espn_rank": 166,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "NYK",
+   "eligibleSlots": [
+    "SG"
+   ]
+  },
+  {
+   "name": "P284",
+   "playerId": 900283,
+   "espn_rank": null,
+   "injuryStatus": "OUT",
+   "proTeam": "LAC",
+   "eligibleSlots": [
+    "SF"
+   ]
+  },
+  {
+   "name": "P285",
+   "playerId": 900284,
+   "espn_rank": 285,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "BOS",
+   "eligibleSlots": [
+    "SG"
+   ]
+  },
+  {
+   "name": "P286",
+   "playerId": 900285,
+   "espn_rank": 346,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "SAC",
+   "eligibleSlots": [
+    "SG",
+    "SF"
+   ]
+  },
+  {
+   "name": "P287",
+   "playerId": 900286,
+   "espn_rank": null,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "CLE",
+   "eligibleSlots": [
+    "SF"
+   ]
+  },
+  {
+   "name": "P288",
+   "playerId": 900287,
+   "espn_rank": 296,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "BOS",
+   "eligibleSlots": [
+    "SF"
+   ]
+  },
+  {
+   "name": "P289",
+   "playerId": 900288,
+   "espn_rank": 346,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "CHA",
+   "eligibleSlots": [
+    "PF"
+   ]
+  },
+  {
+   "name": "P290",
+   "playerId": 900289,
+   "espn_rank": null,
+   "injuryStatus": "OUT",
+   "proTeam": "LAL",
+   "eligibleSlots": [
+    "SG",
+    "SF"
+   ]
+  },
+  {
+   "name": "P291",
+   "playerId": 900290,
+   "espn_rank": 261,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "DEN",
+   "eligibleSlots": [
+    "PF",
+    "C"
+   ]
+  },
+  {
+   "name": "P292",
+   "playerId": 900291,
+   "espn_rank": 204,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "MIL",
+   "eligibleSlots": [
+    "SG"
+   ]
+  },
+  {
+   "name": "P293",
+   "playerId": 900292,
+   "espn_rank": null,
+   "injuryStatus": "OUT",
+   "proTeam": "DAL",
+   "eligibleSlots": [
+    "PG"
+   ]
+  },
+  {
+   "name": "P294",
+   "playerId": 900293,
+   "espn_rank": 355,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "SAS",
+   "eligibleSlots": [
+    "SF",
+    "PF"
+   ]
+  },
+  {
+   "name": "P295",
+   "playerId": 900294,
+   "espn_rank": null,
+   "injuryStatus": "OUT",
+   "proTeam": "PHL",
+   "eligibleSlots": [
+    "C"
+   ]
+  },
+  {
+   "name": "P296",
+   "playerId": 900295,
+   "espn_rank": 249,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "CHI",
+   "eligibleSlots": [
+    "SG",
+    "SF"
+   ]
+  },
+  {
+   "name": "P297",
+   "playerId": 900296,
+   "espn_rank": 221,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "IND",
+   "eligibleSlots": [
+    "SF",
+    "PF"
+   ]
+  },
+  {
+   "name": "P298",
+   "playerId": 900297,
+   "espn_rank": 335,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "DEN",
+   "eligibleSlots": [
+    "SF",
+    "PF"
+   ]
+  },
+  {
+   "name": "P299",
+   "playerId": 900298,
+   "espn_rank": 163,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "DAL",
+   "eligibleSlots": [
+    "PG"
+   ]
+  },
+  {
+   "name": "P300",
+   "playerId": 900299,
+   "espn_rank": 238,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "PHL",
+   "eligibleSlots": [
+    "C"
+   ]
+  },
+  {
+   "name": "P301",
+   "playerId": 900300,
+   "espn_rank": 204,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "BKN",
+   "eligibleSlots": [
+    "C"
+   ]
+  },
+  {
+   "name": "P302",
+   "playerId": 900301,
+   "espn_rank": 266,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "NYK",
+   "eligibleSlots": [
+    "SG",
+    "SF"
+   ]
+  },
+  {
+   "name": "P303",
+   "playerId": 900302,
+   "espn_rank": 304,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "MIL",
+   "eligibleSlots": [
+    "SF"
+   ]
+  },
+  {
+   "name": "P304",
+   "playerId": 900303,
+   "espn_rank": 335,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "POR",
+   "eligibleSlots": [
+    "PG"
+   ]
+  },
+  {
+   "name": "P305",
+   "playerId": 900304,
+   "espn_rank": 182,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "IND",
+   "eligibleSlots": [
+    "PG",
+    "SG"
+   ]
+  },
+  {
+   "name": "P306",
+   "playerId": 900305,
+   "espn_rank": null,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "PHO",
+   "eligibleSlots": [
+    "PG",
+    "SG"
+   ]
+  },
+  {
+   "name": "P307",
+   "playerId": 900306,
+   "espn_rank": 164,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "HOU",
+   "eligibleSlots": [
+    "SG",
+    "SF"
+   ]
+  }
+ ]
+}
