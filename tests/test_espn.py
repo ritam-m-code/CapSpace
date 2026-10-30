@@ -1,0 +1,283 @@
+"""ESPN read-path tests.
+
+The client is faked with stand-ins that mirror `espn_api.basketball`
+attribute names, verified by inspecting the installed package. The raw
+`kona_player_info` field paths used for player rank are NOT yet verified
+against a live private league — see the plan's handoff notes.
+"""
+
+from dataclasses import dataclass, field
+from typing import Any
+
+import pytest
+
+from capspace.data.espn import (
+    EspnAuthError,
+    EspnCreds,
+    match_players_by_name,
+    normalize_name,
+    read_free_agents,
+    read_player_ranks,
+    read_rosters,
+    read_settings,
+    to_status,
+)
+from capspace.data.schemas import CATEGORIES
+
+
+@dataclass
+class FakeSettings:
+    acquisition_limit: int | None = 7
+    waiver_process_days: list[str] = field(default_factory=lambda: ["MON"])
+    scoring_type: str | None = "H2H_CATEGORY"
+    name: str = "Test League"
+
+
+@dataclass
+class FakePlayer:
+    name: str
+    playerId: int
+    proTeam: str = "BOS"
+    position: str = "PG"
+    eligibleSlots: list[str] = field(default_factory=lambda: ["PG", "G", "UTIL", "BE"])
+    injuryStatus: str = "ACTIVE"
+    injured: bool = False
+
+
+@dataclass
+class FakeTeam:
+    team_id: int
+    roster: list[FakePlayer]
+
+
+@dataclass
+class FakeRequest:
+    payload: dict[str, Any] | None = None
+    raises: Exception | None = None
+
+    def league_get(self, params=None, headers=None):  # noqa: ANN001
+        if self.raises is not None:
+            raise self.raises
+        return self.payload or {}
+
+
+@dataclass
+class FakeLeague:
+    league_id: int = 1234567
+    year: int = 2027
+    settings: FakeSettings = field(default_factory=FakeSettings)
+    teams: list[FakeTeam] = field(default_factory=list)
+    _free_agents: list[FakePlayer] = field(default_factory=list)
+    espn_request: FakeRequest = field(default_factory=FakeRequest)
+    settings_payload: dict[str, Any] = field(default_factory=dict)
+
+    def free_agents(self, size: int = 50, **kwargs):  # noqa: ANN001
+        return self._free_agents[:size]
+
+
+def a_league() -> FakeLeague:
+    return FakeLeague(
+        teams=[
+            FakeTeam(1, [FakePlayer("Luka Doncic", 3945274), FakePlayer("Jayson Tatum", 4065648)]),
+            FakeTeam(2, [FakePlayer("Nikola Jokic", 3112335)]),
+        ],
+        _free_agents=[FakePlayer("Micah Peavy", 5106400, injuryStatus="OUT")],
+    )
+
+
+class TestCreds:
+    def test_creds_are_frozen(self):
+        creds = EspnCreds(s2="a", swid="{b}", league_id=1, team_id=2)
+        with pytest.raises(AttributeError):
+            creds.s2 = "c"  # type: ignore[misc]
+
+    def test_missing_cookies_are_rejected_early(self):
+        with pytest.raises(ValueError, match="ESPN_S2"):
+            EspnCreds(s2="", swid="{b}", league_id=1, team_id=2)
+
+
+class TestStatusMapping:
+    @pytest.mark.parametrize(
+        ("espn_status", "expected"),
+        [
+            ("ACTIVE", "ACTIVE"),
+            ("DAY_TO_DAY", "DTD"),
+            ("QUESTIONABLE", "DTD"),
+            ("DOUBTFUL", "DTD"),
+            ("OUT", "OUT"),
+            ("SUSPENSION", "OUT"),
+            ("INJURY_RESERVE", "INACTIVE"),
+            ("FIVE_DAY_DNP", "INACTIVE"),
+        ],
+    )
+    def test_maps_espn_statuses_onto_the_schema(self, espn_status, expected):
+        assert to_status(espn_status) == expected
+
+    def test_an_unknown_status_is_treated_as_active_not_dropped(self):
+        """A new ESPN status string must not silently remove a healthy player."""
+        assert to_status("SOMETHING_NEW") == "ACTIVE"
+
+    def test_none_is_active(self):
+        assert to_status(None) == "ACTIVE"
+
+
+class TestReadSettings:
+    def test_reads_the_acquisition_limit_from_the_api(self):
+        s = read_settings(a_league())
+        assert s.acquisition_limit == 7
+
+    def test_defaults_an_absent_acquisition_limit_to_unlimited(self):
+        league = a_league()
+        league.settings.acquisition_limit = None
+        assert read_settings(league).acquisition_limit == 0
+
+    def test_categories_come_from_the_schema_order(self):
+        assert read_settings(a_league()).categories == list(CATEGORIES)
+
+    def test_waiver_days_is_the_count_of_process_days(self):
+        assert read_settings(a_league()).waiver_days == 1
+
+    def test_league_and_team_ids_are_carried_through(self):
+        s = read_settings(a_league(), team_id=4)
+        assert s.league_id == 1234567
+        assert s.team_id == 4
+
+
+class TestReadRosters:
+    def test_returns_players_keyed_by_team_id(self):
+        rosters = read_rosters(a_league())
+        assert set(rosters) == {1, 2}
+        assert len(rosters[1]) == 2
+
+    def test_players_carry_their_espn_id(self):
+        assert all(p.espn_id is not None for p in read_rosters(a_league())[1])
+
+    def test_nba_id_is_absent_until_the_crosswalk_runs(self):
+        """ESPN ids are not NBA ids; nba_id is 0 as a sentinel until matched."""
+        assert read_rosters(a_league())[1][0].nba_id == 0
+
+    def test_status_is_mapped_not_passed_through(self):
+        league = a_league()
+        league.teams[0].roster[0].injuryStatus = "DAY_TO_DAY"
+        assert read_rosters(league)[1][0].status == "DTD"
+
+    def test_expired_cookies_raise_a_named_error(self):
+        """Review Focus 4: an auth failure must not read as an empty roster."""
+        league = a_league()
+        league.teams = []
+        with pytest.raises(EspnAuthError, match="ESPN_S2"):
+            read_rosters(league)
+
+    def test_the_error_message_names_both_cookies_and_the_fix(self):
+        league = a_league()
+        league.teams = []
+        with pytest.raises(EspnAuthError) as excinfo:
+            read_rosters(league)
+        message = str(excinfo.value)
+        assert "ESPN_SWID" in message
+        assert "SETUP_CREDENTIALS.md" in message
+
+
+class TestReadFreeAgents:
+    def test_returns_the_free_agent_pool(self):
+        agents = read_free_agents(a_league())
+        assert [p.name for p in agents] == ["Micah Peavy"]
+
+    def test_free_agents_exclude_rostered_players(self):
+        league = a_league()
+        rostered = {p.espn_id for ps in read_rosters(league).values() for p in ps}
+        assert not {p.espn_id for p in read_free_agents(league)} & rostered
+
+    def test_free_agent_status_is_mapped(self):
+        assert read_free_agents(a_league())[0].status == "OUT"
+
+
+class TestReadPlayerRanks:
+    def test_reads_the_standard_draft_rank(self):
+        league = a_league()
+        league.espn_request = FakeRequest(
+            payload={
+                "players": [
+                    {
+                        "id": 3945274,
+                        "player": {
+                            "draftRanksByRankType": {
+                                "STANDARD": {"rank": 1, "rankType": "STANDARD"}
+                            }
+                        },
+                    },
+                    {
+                        "id": 4065648,
+                        "player": {
+                            "draftRanksByRankType": {
+                                "STANDARD": {"rank": 12, "rankType": "STANDARD"}
+                            }
+                        },
+                    },
+                ]
+            }
+        )
+        assert read_player_ranks(league) == {3945274: 1, 4065648: 12}
+
+    def test_players_without_a_rank_are_omitted_not_zeroed(self):
+        league = a_league()
+        league.espn_request = FakeRequest(
+            payload={"players": [{"id": 1, "player": {"draftRanksByRankType": {}}}]}
+        )
+        assert read_player_ranks(league) == {}
+
+    def test_an_auth_failure_is_reraised_as_an_auth_error(self):
+        league = a_league()
+        league.espn_request = FakeRequest(raises=Exception("401 Unauthorized"))
+        with pytest.raises(EspnAuthError):
+            read_player_ranks(league)
+
+    def test_an_unexpected_payload_shape_is_an_empty_map_not_a_crash(self):
+        league = a_league()
+        league.espn_request = FakeRequest(payload={"unexpected": True})
+        assert read_player_ranks(league) == {}
+
+
+class TestNameNormalization:
+    @pytest.mark.parametrize(
+        ("raw", "expected"),
+        [
+            ("Luka Dončić", "luka doncic"),
+            ("Luka Doncic", "luka doncic"),
+            ("Nikola Jokić", "nikola jokic"),
+            ("Jaren Jackson Jr.", "jaren jackson"),
+            ("Gary Trent Jr", "gary trent"),
+            ("Wendell Carter Jr.", "wendell carter"),
+            ("Kelly Oubre Jr.", "kelly oubre"),
+            ("Marvin Bagley III", "marvin bagley"),
+            ("P.J. Washington", "pj washington"),
+            ("  Jalen   Green  ", "jalen green"),
+            ("De'Aaron Fox", "deaaron fox"),
+        ],
+    )
+    def test_normalizes_accents_suffixes_and_punctuation(self, raw, expected):
+        assert normalize_name(raw) == expected
+
+    def test_accented_and_unaccented_spellings_collide_deliberately(self):
+        assert normalize_name("Luka Dončić") == normalize_name("Luka Doncic")
+
+
+class TestCrosswalk:
+    def test_matches_espn_ids_to_nba_ids_by_normalized_name(self):
+        espn = {3945274: "Luka Doncic", 3112335: "Nikola Jokic"}
+        nba = {1629029: "Luka Dončić", 203999: "Nikola Jokić"}
+        assert match_players_by_name(espn, nba) == {3945274: 1629029, 3112335: 203999}
+
+    def test_an_unmatched_espn_player_is_absent_from_the_map(self):
+        assert match_players_by_name({1: "Nobody At All"}, {2: "Luka Dončić"}) == {}
+
+    def test_suffix_differences_still_match(self):
+        espn = {1: "Jaren Jackson Jr."}
+        nba = {2: "Jaren Jackson Jr"}
+        assert match_players_by_name(espn, nba) == {1: 2}
+
+    def test_ambiguous_names_are_skipped_rather_than_guessed(self):
+        """Two NBA players normalizing identically must not be matched blind."""
+        espn = {1: "Jalen Williams"}
+        nba = {10: "Jalen Williams", 11: "Jalen  Williams"}
+        assert match_players_by_name(espn, nba) == {}
