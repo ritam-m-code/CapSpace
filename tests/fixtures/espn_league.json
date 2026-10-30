@@ -1,0 +1,170 @@
+{
+ "_note": "SYNTHETIC. Shaped to espn_api attribute names, not recorded from a live league. Replace via `capspace fixtures-record` once ESPN credentials exist.",
+ "league_id": 1234567,
+ "team_id": 4,
+ "year": 2027,
+ "settings": {
+  "acquisition_limit": 7,
+  "waiver_process_days": [
+   "MON"
+  ],
+  "scoring_type": "H2H_CATEGORY",
+  "name": "CapSpace Test League"
+ },
+ "teams": [
+  {
+   "team_id": 4,
+   "roster": [
+    "Tyrese Maxey",
+    "Shai Gilgeous-Alexander",
+    "Luka Doncic",
+    "Anthony Edwards",
+    "Kevin Durant"
+   ]
+  },
+  {
+   "team_id": 7,
+   "roster": [
+    "Brandon Miller",
+    "Donovan Mitchell",
+    "Jaylen Brown"
+   ]
+  }
+ ],
+ "free_agents": [
+  "Keegan Murray",
+  "Micah Peavy"
+ ],
+ "players": [
+  {
+   "name": "Tyrese Maxey",
+   "playerId": 3908809,
+   "espn_rank": 8,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "PHI",
+   "eligibleSlots": [
+    "PG",
+    "SG",
+    "UTIL",
+    "BE"
+   ]
+  },
+  {
+   "name": "Shai Gilgeous-Alexander",
+   "playerId": 4278073,
+   "espn_rank": 2,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "OKC",
+   "eligibleSlots": [
+    "PG",
+    "SG",
+    "UTIL",
+    "BE"
+   ]
+  },
+  {
+   "name": "Luka Doncic",
+   "playerId": 3945274,
+   "espn_rank": 1,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "LAL",
+   "eligibleSlots": [
+    "PG",
+    "SG",
+    "UTIL",
+    "BE"
+   ]
+  },
+  {
+   "name": "Anthony Edwards",
+   "playerId": 4594268,
+   "espn_rank": 5,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "MIN",
+   "eligibleSlots": [
+    "SG",
+    "SF",
+    "UTIL",
+    "BE"
+   ]
+  },
+  {
+   "name": "Kevin Durant",
+   "playerId": 3202,
+   "espn_rank": 9,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "HOU",
+   "eligibleSlots": [
+    "SF",
+    "PF",
+    "UTIL",
+    "BE"
+   ]
+  },
+  {
+   "name": "Brandon Miller",
+   "playerId": 4683634,
+   "espn_rank": 30,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "CHA",
+   "eligibleSlots": [
+    "SG",
+    "SF",
+    "UTIL",
+    "BE"
+   ]
+  },
+  {
+   "name": "Donovan Mitchell",
+   "playerId": 3908845,
+   "espn_rank": 7,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "CLE",
+   "eligibleSlots": [
+    "PG",
+    "SG",
+    "UTIL",
+    "BE"
+   ]
+  },
+  {
+   "name": "Jaylen Brown",
+   "playerId": 3917376,
+   "espn_rank": 14,
+   "injuryStatus": "DAY_TO_DAY",
+   "proTeam": "BOS",
+   "eligibleSlots": [
+    "SG",
+    "SF",
+    "UTIL",
+    "BE"
+   ]
+  },
+  {
+   "name": "Keegan Murray",
+   "playerId": 4432164,
+   "espn_rank": null,
+   "injuryStatus": "ACTIVE",
+   "proTeam": "SAC",
+   "eligibleSlots": [
+    "SF",
+    "PF",
+    "UTIL",
+    "BE"
+   ]
+  },
+  {
+   "name": "Micah Peavy",
+   "playerId": 5106400,
+   "espn_rank": null,
+   "injuryStatus": "OUT",
+   "proTeam": "NOP",
+   "eligibleSlots": [
+    "SG",
+    "SF",
+    "UTIL",
+    "BE"
+   ]
+  }
+ ]
+}

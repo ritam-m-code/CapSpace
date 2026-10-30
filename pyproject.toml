@@ -45,6 +45,10 @@ extend-exclude = ["docs"]
 [tool.ruff.lint]
 select = ["E", "F", "I", "UP", "B", "SIM"]
 
+[tool.ruff.lint.flake8-bugbear]
+# typer's documented idiom is a call in the parameter default.
+extend-immutable-calls = ["typer.Option", "typer.Argument"]
+
 [tool.pyright]
 venvPath = "."
 venv = ".venv"
