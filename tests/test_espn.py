@@ -6,6 +6,7 @@ attribute names, verified by inspecting the installed package. The raw
 against a live private league — see the plan's handoff notes.
 """
 
+import json
 from dataclasses import dataclass, field
 from typing import Any
 
@@ -54,8 +55,10 @@ class FakeTeam:
 class FakeRequest:
     payload: dict[str, Any] | None = None
     raises: Exception | None = None
+    last_headers: dict[str, str] | None = None
 
     def league_get(self, params=None, headers=None):  # noqa: ANN001
+        self.last_headers = headers
         if self.raises is not None:
             raise self.raises
         return self.payload or {}
@@ -193,36 +196,67 @@ class TestReadFreeAgents:
 
 
 class TestReadPlayerRanks:
-    def test_reads_the_standard_draft_rank(self):
+    """Shapes below are recorded from a live private league on 2026-10-29."""
+
+    def ratings_payload(self, rows: list[tuple[int, int, int]]) -> dict:
+        """`(espn_id, season_rank, recent_rank)` as ESPN returns it."""
+        return {
+            "players": [
+                {
+                    "id": espn_id,
+                    "ratings": {
+                        "0": {"totalRanking": season, "positionalRanking": 1},
+                        "1": {"totalRanking": recent, "positionalRanking": 1},
+                        "2": {"totalRanking": season, "positionalRanking": 1},
+                        "3": {"totalRanking": season, "positionalRanking": 1},
+                    },
+                    "player": {
+                        "fullName": f"P{espn_id}",
+                        "draftRanksByRankType": {"STANDARD": {"rank": 999}},
+                    },
+                }
+                for espn_id, season, recent in rows
+            ]
+        }
+
+    def test_reads_the_season_to_date_total_ranking(self):
         league = a_league()
-        league.espn_request = FakeRequest(
-            payload={
-                "players": [
-                    {
-                        "id": 3945274,
-                        "player": {
-                            "draftRanksByRankType": {
-                                "STANDARD": {"rank": 1, "rankType": "STANDARD"}
-                            }
-                        },
-                    },
-                    {
-                        "id": 4065648,
-                        "player": {
-                            "draftRanksByRankType": {
-                                "STANDARD": {"rank": 12, "rankType": "STANDARD"}
-                            }
-                        },
-                    },
-                ]
-            }
-        )
-        assert read_player_ranks(league) == {3945274: 1, 4065648: 12}
+        league.espn_request = FakeRequest(self.ratings_payload([(11, 9, 2), (22, 29, 7)]))
+        assert read_player_ranks(league) == {11: 9, 22: 29}
+
+    def test_prefers_the_season_split_over_the_draft_rank(self):
+        """The draft rank is preseason. Jokic was draft 1 and is now 9; using
+        the draft rank would price every player as of October."""
+        league = a_league()
+        league.espn_request = FakeRequest(self.ratings_payload([(11, 9, 2)]))
+        assert read_player_ranks(league)[11] == 9
+
+    def test_prefers_the_season_split_over_the_recent_window(self):
+        """Perceived value is what the manager sees in-app: season-to-date."""
+        league = a_league()
+        league.espn_request = FakeRequest(self.ratings_payload([(22, 29, 7)]))
+        assert read_player_ranks(league)[22] == 29
+
+    def test_sends_a_fantasy_filter_so_the_full_universe_comes_back(self):
+        """Without the header ESPN returns a short alphabetical page, which
+        silently ranked only players whose surname began with A or B."""
+        league = a_league()
+        league.espn_request = FakeRequest(self.ratings_payload([(11, 1, 1)]))
+        read_player_ranks(league, limit=300)
+        headers = league.espn_request.last_headers or {}
+        assert "x-fantasy-filter" in headers
+        sent = json.loads(headers["x-fantasy-filter"])
+        assert sent["players"]["limit"] == 300
 
     def test_players_without_a_rank_are_omitted_not_zeroed(self):
         league = a_league()
+        league.espn_request = FakeRequest({"players": [{"id": 1, "ratings": {}}]})
+        assert read_player_ranks(league) == {}
+
+    def test_a_null_total_ranking_is_omitted(self):
+        league = a_league()
         league.espn_request = FakeRequest(
-            payload={"players": [{"id": 1, "player": {"draftRanksByRankType": {}}}]}
+            {"players": [{"id": 1, "ratings": {"0": {"totalRanking": None}}}]}
         )
         assert read_player_ranks(league) == {}
 
@@ -236,6 +270,35 @@ class TestReadPlayerRanks:
         league = a_league()
         league.espn_request = FakeRequest(payload={"unexpected": True})
         assert read_player_ranks(league) == {}
+
+
+class TestPositionParsing:
+    """Real `eligibleSlots` carry `UT` (not `UTIL`) plus combo slots."""
+
+    def test_keeps_only_atomic_positions(self):
+        league = a_league()
+        league.teams[0].roster[0].eligibleSlots = [
+            "PF",
+            "C",
+            "F",
+            "G/F",
+            "PF/C",
+            "F/C",
+            "UT",
+            "BE",
+        ]
+        assert read_rosters(league)[1][0].positions == ["PF", "C"]
+
+    def test_drops_the_ut_slot_espn_actually_sends(self):
+        league = a_league()
+        league.teams[0].roster[0].eligibleSlots = ["PG", "G", "UT", "BE"]
+        assert read_rosters(league)[1][0].positions == ["PG"]
+
+    def test_falls_back_to_the_default_position_when_no_atomic_slot_is_listed(self):
+        league = a_league()
+        league.teams[0].roster[0].eligibleSlots = ["UT", "BE"]
+        league.teams[0].roster[0].position = "SG"
+        assert read_rosters(league)[1][0].positions == ["SG"]
 
 
 class TestNameNormalization:

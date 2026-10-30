@@ -20,6 +20,7 @@ from typing import Any, cast
 
 import pandas as pd
 import typer
+from dotenv import load_dotenv
 from rich.console import Console
 from rich.table import Table
 
@@ -28,6 +29,7 @@ from capspace.data.espn import (
     EspnCreds,
     build_client,
     match_players_by_name,
+    read_free_agents,
     read_player_ranks,
     read_rosters,
     to_status,
@@ -56,6 +58,28 @@ FIXTURE_ASOF = dt.date(2026, 2, 1)
 FIXTURE_WINDOW_DAYS = 400
 
 DEFAULT_CACHE_PATH = Path.home() / ".cache" / "capspace" / "cache.duckdb"
+DEFAULT_ENV_PATH = Path(".env")
+
+ANONYMIZED_LEAGUE_ID = 1234567
+ANONYMIZED_TEAM_ID = 1
+"""Placeholders written into the committed fixture in place of real ids."""
+
+
+def load_credentials(env_path: Path | None = None) -> EspnCreds:
+    """The four ESPN values, from `.env` unless the shell already has them.
+
+    `.env` is where SETUP_CREDENTIALS.md tells the owner to put these, so the
+    CLI has to read it; relying on the shell environment alone would report
+    perfectly good cookies as missing. The shell wins on conflict, which is
+    what makes a one-off override possible without editing the file.
+    """
+    load_dotenv(env_path if env_path is not None else DEFAULT_ENV_PATH, override=False)
+    return EspnCreds(
+        s2=os.environ.get("ESPN_S2", ""),
+        swid=os.environ.get("ESPN_SWID", ""),
+        league_id=int(os.environ.get("ESPN_LEAGUE_ID") or 0),
+        team_id=int(os.environ.get("ESPN_TEAM_ID") or 0),
+    )
 
 
 def spread(model_rank: pd.Series, espn_rank: pd.Series) -> pd.Series:
@@ -125,12 +149,7 @@ def _load_from_fixtures() -> tuple[list[GameLog], list[Player], dict[int, int]]:
 
 def _load_from_live(season: str) -> tuple[list[GameLog], list[Player], dict[int, int]]:
     """Game logs from `nba_api`, players and ranks from the ESPN league."""
-    creds = EspnCreds(
-        s2=os.environ.get("ESPN_S2", ""),
-        swid=os.environ.get("ESPN_SWID", ""),
-        league_id=int(os.environ.get("ESPN_LEAGUE_ID") or 0),
-        team_id=int(os.environ.get("ESPN_TEAM_ID") or 0),
-    )
+    creds = load_credentials()
     cache = Cache(DEFAULT_CACHE_PATH)
     logs = fetch_game_logs(season, cache)
 
@@ -235,8 +254,9 @@ ZSCORE_VIEW_WIDTH = 170
 """The nine-category table needs this much room; narrower elides headers."""
 
 
-def _print(frame: pd.DataFrame, view: str) -> None:
-    out = Console(width=ZSCORE_VIEW_WIDTH) if view == "zscore" else console
+def _print(frame: pd.DataFrame, view: str, out: Console | None = None) -> None:
+    if out is None:
+        out = Console(width=ZSCORE_VIEW_WIDTH) if view == "zscore" else console
     table = Table(title="Model value vs. ESPN perceived rank", header_style="bold")
     for column in ("Player", "Team", "Pos"):
         table.add_column(column, no_wrap=True)
@@ -272,48 +292,54 @@ def fixtures_record(
     committed ESPN fixture is synthetic until this has been run once against
     a live private league; see SETUP_CREDENTIALS.md.
     """
-    creds = EspnCreds(
-        s2=os.environ.get("ESPN_S2", ""),
-        swid=os.environ.get("ESPN_SWID", ""),
-        league_id=int(os.environ.get("ESPN_LEAGUE_ID") or 0),
-        team_id=int(os.environ.get("ESPN_TEAM_ID") or 0),
-    )
+    creds = load_credentials()
     season = _current_season()
     try:
         client = build_client(creds, year=int(season.split("-")[0]) + 1)
         rosters = read_rosters(client)
         ranks = read_player_ranks(client)
+        agents = read_free_agents(client)
     except (EspnAuthError, ValueError) as exc:
         console.print(f"[red]{exc}[/red]")
         raise typer.Exit(code=1) from exc
 
-    players = [
-        {
-            "name": p.name,
-            "playerId": p.espn_id,
-            "espn_rank": ranks.get(p.espn_id) if p.espn_id is not None else None,
-            "injuryStatus": p.status,
-            "proTeam": p.team,
-            "eligibleSlots": p.positions,
+    def as_entry(player: Player) -> dict[str, Any]:
+        espn_id = player.espn_id
+        return {
+            "name": player.name,
+            "playerId": espn_id,
+            "espn_rank": ranks.get(espn_id) if espn_id is not None else None,
+            "injuryStatus": player.status,
+            "proTeam": player.team,
+            "eligibleSlots": player.positions,
         }
-        for roster in rosters.values()
-        for p in roster
-    ]
+
+    rostered = [p for roster in rosters.values() for p in roster]
+    players = [as_entry(p) for p in rostered + agents]
+
+    # League and team ids are anonymized: this fixture is committed and no
+    # test needs the real ones. Rosters, names, statuses and ranks are real.
     document = {
-        "_note": f"Recorded from league {creds.league_id} for {season}.",
-        "league_id": creds.league_id,
-        "team_id": creds.team_id,
+        "_note": (
+            f"Recorded from a live private league for {season} on "
+            f"{dt.date.today().isoformat()}. League and team ids anonymized."
+        ),
+        "league_id": ANONYMIZED_LEAGUE_ID,
+        "team_id": ANONYMIZED_TEAM_ID,
         "year": int(season.split("-")[0]) + 1,
         "teams": [
             {"team_id": tid, "roster": [p.name for p in roster]} for tid, roster in rosters.items()
         ],
-        "free_agents": [],
+        "free_agents": [p.name for p in agents],
         "players": players,
     }
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps(document, indent=1))
+    ranked = sum(1 for p in players if p["espn_rank"] is not None)
     console.print(
-        f"[green]Wrote {len(players)} players from {len(rosters)} teams to {out}.[/green]"
+        f"[green]Wrote {len(players)} players "
+        f"({len(rostered)} rostered, {len(agents)} free agents) "
+        f"from {len(rosters)} teams to {out}. {ranked} carry an ESPN rank.[/green]"
     )
     if not ranks:
         console.print(

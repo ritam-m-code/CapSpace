@@ -24,14 +24,14 @@ confirmed by inspecting `espn_api` 0.46 and the live NBA data:
    score as a roster of zeros. Empty reads are therefore treated as auth
    failures and raised.
 
-UNVERIFIED: the `draftRanksByRankType.STANDARD.rank` path in
-`read_player_ranks` is read from the community-mapped `kona_player_info`
-response and has not been run against a live private basketball league. It is
-the first thing to check once credentials exist.
+All of the above was verified against a live private league on 2026-10-29,
+which corrected three wrong guesses: the rank field, the need for an
+`x-fantasy-filter` header, and the contents of `eligibleSlots`.
 """
 
 from __future__ import annotations
 
+import json
 import re
 import unicodedata
 from dataclasses import dataclass
@@ -62,6 +62,23 @@ _STATUS_MAP: dict[str, PlayerStatus] = {
 }
 
 _NAME_SUFFIXES = {"jr", "sr", "ii", "iii", "iv", "v"}
+
+ATOMIC_POSITIONS: tuple[str, ...] = ("PG", "SG", "SF", "PF", "C")
+"""The only real positions. ESPN's `eligibleSlots` also carries bench (`BE`),
+injured reserve (`IR`), utility (`UT` — not `UTIL`) and combination slots
+(`G`, `F`, `G/F`, `SG/SF`, `PF/C`, `F/C`), none of which are positions."""
+
+SEASON_RATING_SPLIT = "0"
+"""Which `ratings` split carries season-to-date rank.
+
+Recorded from a live league: splits `0`, `2` and `3` agree and track the
+season, while `1` is a recent-form window. Perceived value is what the
+opposing manager sees in the app, which is season-to-date, so `0` it is.
+Split `1` is a genuine mispricing signal and worth surfacing later."""
+
+DEFAULT_RANK_LIMIT = 400
+"""How many ranked players to request. ESPN pages `kona_player_info`, and
+without an explicit limit returns a short alphabetical slice."""
 
 UNMATCHED_NBA_ID = 0
 """Sentinel for a player whose ESPN entry has not been joined to an NBA id."""
@@ -151,8 +168,8 @@ def build_client(creds: EspnCreds, year: int) -> Any:
 def _to_player(espn_player: Any) -> Player:
     """One ESPN player as a schema `Player`, with no NBA id yet."""
     slots = list(getattr(espn_player, "eligibleSlots", []) or [])
-    positions = [s for s in slots if s not in {"BE", "IR", "UTIL"}] or [
-        str(getattr(espn_player, "position", "UTIL"))
+    positions = [s for s in slots if s in ATOMIC_POSITIONS] or [
+        str(getattr(espn_player, "position", "UT"))
     ]
     return Player(
         nba_id=UNMATCHED_NBA_ID,
@@ -222,29 +239,46 @@ def read_free_agents(client: Any, size: int = 200) -> list[Player]:
     return [_to_player(p) for p in agents]
 
 
-def read_player_ranks(client: Any) -> dict[int, int]:
-    """ESPN's overall player rank, keyed by ESPN player id.
+def read_player_ranks(client: Any, limit: int = DEFAULT_RANK_LIMIT) -> dict[int, int]:
+    """ESPN's season-to-date overall rank, keyed by ESPN player id.
 
-    This is *perceived* value — what the opposing manager sees in the app,
-    computed from season-to-date totals. The gap between it and model value
-    is the entire product, so it is read from the raw `kona_player_info`
-    view: the wrapper does not surface it.
+    This is *perceived* value — what the opposing manager sees in the app. The
+    gap between it and model value is the entire product, so it is read from
+    the raw `kona_player_info` view: the wrapper exposes only `posRank`.
+
+    Two things here are load-bearing and were both wrong before a live league
+    was available to check against:
+
+    - The `x-fantasy-filter` header is required. Without it ESPN returns a
+      short alphabetical page, which silently produced ranks only for players
+      whose surname began with A or B.
+    - The rank comes from `ratings[SEASON_RATING_SPLIT].totalRanking`, not
+      from `draftRanksByRankType`. The latter is a *preseason draft* rank:
+      Jokic is draft 1 but currently 9, Wembanyama draft 4 but currently 1.
+      Using it would price every player as of October.
 
     Players with no rank are omitted rather than given a sentinel, so callers
-    can render a blank instead of mistaking 0 for "best in the league".
+    render a blank instead of mistaking 0 for "best in the league".
     """
-    params = {"view": "kona_player_info"}
+    filters = {
+        "players": {
+            "limit": limit,
+            "sortDraftRanks": {"sortPriority": 100, "sortAsc": True, "value": "STANDARD"},
+        }
+    }
     try:
-        payload = client.espn_request.league_get(params=params, headers=None)
+        payload = client.espn_request.league_get(
+            params={"view": "kona_player_info"},
+            headers={"x-fantasy-filter": json.dumps(filters)},
+        )
     except Exception as exc:  # noqa: BLE001 - upstream raises bare Exception
         raise EspnAuthError(f"{CREDENTIAL_HELP} (upstream said: {exc})") from exc
 
     ranks: dict[int, int] = {}
     for entry in (payload or {}).get("players", []) or []:
         espn_id = entry.get("id")
-        inner = entry.get("player") or {}
-        standard = (inner.get("draftRanksByRankType") or {}).get("STANDARD") or {}
-        rank = standard.get("rank")
+        split = (entry.get("ratings") or {}).get(SEASON_RATING_SPLIT) or {}
+        rank = split.get("totalRanking")
         if espn_id is not None and rank is not None:
             ranks[int(espn_id)] = int(rank)
     return ranks
