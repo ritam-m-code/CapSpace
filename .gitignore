@@ -1,0 +1,20 @@
+# Secrets — never commit
+.env
+
+# Local setup notes (personal, machine-specific)
+SETUP_CREDENTIALS.md
+
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+
+# Local data cache
+*.duckdb
+*.duckdb.wal
+
+# OS
+.DS_Store

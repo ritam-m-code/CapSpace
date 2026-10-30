@@ -192,15 +192,17 @@ Design locked; implementation in progress.
 
 ## Operating cost
 
+Deployed on AWS. The Discord bot holds a persistent gateway connection, so the compute has to be always-on rather than serverless; a `t4g.nano` runs both the bot and the APScheduler nightly pipeline.
+
 | Item | Monthly |
 |---|---|
-| Fly.io `shared-cpu-1x` 256MB, always on | $2.19 |
-| Fly.io 1GB volume | $0.15 |
+| EC2 `t4g.nano`, always on (on-demand, ARM) | $3.07 |
+| EBS `gp3` 8GB root volume | $0.64 |
 | Hashtag Basketball premium (in-season, validation only) | $2.50 |
 | `nba_api`, ESPN API, Discord, GitHub | $0.00 |
-| **Total** | **~$4.84** |
+| **Total** | **~$6.21** |
 
-Roughly $34/year running in-season only. Self-hosting on an always-on machine drops it to the $2.50 subscription.
+Roughly $43/year running in-season only. Existing AWS credits cover the compute, which leaves the $2.50 subscription as the only real cost — and that is validation-only, so it is optional. A reserved instance or a Graviton savings plan would cut the compute by about a third if the credits run out.
 
 ---
 
