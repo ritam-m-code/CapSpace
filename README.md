@@ -175,8 +175,8 @@ League settings — roster slots, lineup lock type, acquisition limits, scoring 
 
 ## Status
 
-Data and valuation core shipped; `capspace rank` runs. 169 tests, `ruff` and
-`pyright` clean.
+Data and valuation core shipped; `capspace rank` runs against live NBA and
+ESPN data. 181 tests, `ruff` and `pyright` clean.
 
 - [x] ESPN read integration, league settings, DuckDB schema
 - [x] Projections: per-minute rates and minutes estimates
@@ -189,16 +189,16 @@ Data and valuation core shipped; `capspace rank` runs. 169 tests, `ruff` and
 - [ ] Discord bot and scheduled digest
 - [ ] Lineup write path with guardrails
 
-Two seams are not yet verified against a live league, because they need
-private-league credentials:
+Both ESPN seams are now verified against a live private league. Recorded
+fixtures come from a real league with ids anonymized, and `capspace rank`
+has been run end to end against live NBA and ESPN data.
 
-- ESPN response shapes are modeled on the `espn_api` package rather than
-  recorded. `capspace fixtures-record` replaces them in one command.
-- `read_player_ranks` reads `draftRanksByRankType.STANDARD.rank` from the raw
-  `kona_player_info` view, because the wrapper does not expose an overall
-  rank for basketball. The field path is community-mapped, not confirmed.
+One caveat on current output: the season is nine days old, so ESPN's
+season-to-date ranks punish missed games while the model's per-game rates do
+not. Every player who has missed games currently reads as under-rated. That
+is the intended mechanism, but at this point in the season it is a
+systematic bias rather than selective arbitrage.
 
-NBA-side data is real: fixtures are recorded from the live `nba_api`.
 See `HANDOFF.md`.
 
 ---

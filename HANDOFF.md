@@ -4,7 +4,7 @@ Written at the halfway mark for whoever picks this up next, human or agent.
 The README is the spec and has not changed except its Status section and the
 deployment target. **Read the README first, then this.**
 
-Branch: `feat/data-valuation-core`, 11 commits, not merged to `main`.
+Branch: `feat/data-valuation-core`, 13 commits, not merged to `main`.
 
 ---
 
@@ -14,7 +14,7 @@ The data and valuation half is done and works end to end. Checklist items 1–5
 of the README are shipped; 6–10 are not started.
 
 ```
-169 tests passing · ruff clean · ruff format clean · pyright 0 errors
+181 tests passing · ruff clean · ruff format clean · pyright 0 errors
 ```
 
 Run it:
@@ -35,19 +35,28 @@ sorted by the gap.
 | `data/schemas.py` | pydantic v2 models, `CATEGORIES`, `POOL_SIZE` | — |
 | `data/storage.py` | DuckDB cache, 12h TTL, stale-on-failure | unit tests |
 | `data/ingestion.py` | `nba_api` game logs + schedule | **live API** |
-| `data/espn.py` | ESPN reads, status map, name crosswalk | `espn_api` package source |
+| `data/espn.py` | ESPN reads, status map, name crosswalk | **live private league** |
 | `engine/schedule.py` | weekly game counts, off-night density | real recorded schedule |
 | `engine/projections.py` | per-minute rates, shrinkage, minutes | real recorded game logs |
 | `engine/metrics.py` | volume-weighted category z-scores | real recorded game logs |
-| `cli/main.py` | `capspace rank`, `capspace fixtures-record` | fixtures |
+| `cli/main.py` | `capspace rank`, `capspace fixtures-record` | fixtures + **live run** |
 
 Fixtures in `tests/fixtures/`:
 
-- `nba_gamelogs.json`, `nba_schedule.json` — **recorded from the live
-  `nba_api`** on 2026-10-29. 10 players, 10 teams, Jan 2026 window. Recorded
-  by `scripts/record_nba_fixtures.py`.
-- `espn_league.json` — **synthetic.** Shaped to `espn_api` attribute names,
-  not recorded. This is the main thing to fix.
+- `nba_gamelogs.json`, `nba_schedule.json` — recorded from the live
+  `nba_api` on 2026-10-29. 10 players, 10 teams, **Jan 2026** window (the
+  2025-26 season), chosen for its edge cases. Recorded by
+  `scripts/record_nba_fixtures.py`.
+- `espn_league.json` — recorded from the **live league** on 2026-10-29. 308
+  players (108 rostered, 200 free agents), 8 teams, **2026-27** season. Ids
+  anonymized. Re-record with `uv run capspace fixtures-record`.
+
+**These two fixtures are from different seasons.** The engine fixture is
+2025-26 for its edge cases; the ESPN fixture is the live 2026-27 league. Nine
+of ten players overlap by name, so `CAPSPACE_FIXTURES=1` works, but the
+ranks and the game logs describe different seasons and the demo output is
+correspondingly muted. Recording a current-season NBA fixture would make
+fixtures mode coherent; the engine fixture should stay as it is.
 
 The fixture cast was chosen to carry edge cases, not just stars: Keegan
 Murray has 3 games (thin sample), Micah Peavy has 0 free-throw attempts
@@ -55,45 +64,86 @@ across 14 games and is `OUT`.
 
 ---
 
-## The two unverified seams
+## The ESPN seam — now verified
 
-Both need ESPN private-league cookies. Nothing else is blocked.
+Both seams flagged in the first draft of this file are **resolved**. The owner
+supplied credentials on 2026-10-29 and the live league corrected three wrong
+guesses. Recorded fixtures now come from a real league, with league and team
+ids anonymized; rosters, names, statuses and ranks are real.
 
-### 1. ESPN response shapes are modeled, not recorded
+What was wrong, in case any of it regresses:
 
-`data/espn.py` was written against the installed `espn_api` 0.46 source, so
-the attribute names (`playerId`, `proTeam`, `injuryStatus`, `eligibleSlots`,
-`settings.acquisition_limit`, `settings.waiver_process_days`) are right for
-that package version. What is unverified is how a *real* league populates
-them.
+1. **The CLI never loaded `.env`.** `python-dotenv` was a declared dependency
+   that was never called, so credentials placed exactly where
+   `SETUP_CREDENTIALS.md` says to put them were reported as missing. Now
+   `cli/main.py:load_credentials` loads the file, with the shell winning on
+   conflict.
 
-**Fix in one command**, once `.env` has the four ESPN values:
+2. **`read_player_ranks` omitted the `x-fantasy-filter` header.** Without it
+   ESPN returns a short alphabetical page: only 11 of 108 players got a rank,
+   all with surnames starting A or B. With the header, 284 of 308 do. Any
+   raw `kona_player_info` call needs this header and an explicit `limit`.
+
+3. **The rank was read from the wrong field.** `draftRanksByRankType` is a
+   *preseason draft* rank — Jokić is draft 1 but currently 9, Wembanyama
+   draft 4 but currently 1. Using it prices every player as of October. The
+   in-app rank is `entry["ratings"]["0"]["totalRanking"]`, where the split
+   keys mean:
+
+   | key | meaning |
+   |---|---|
+   | `0`, `2`, `3` | season-to-date (they agree) |
+   | `1` | recent-form window |
+
+   `SEASON_RATING_SPLIT = "0"` because perceived value is what the opposing
+   manager sees in the app. **Split `1` is unexploited and valuable**: the
+   gap between `0` and `1` is the "role changed four days ago" signal the
+   README's streaming thesis depends on. Mitchell was season-29 / recent-7.
+   Worth surfacing in Plan 2.
+
+4. **Real `eligibleSlots` carry `UT`, not `UTIL`**, plus combination slots
+   (`G`, `F`, `G/F`, `SG/SF`, `PF/C`, `F/C`). Only `ATOMIC_POSITIONS` are
+   kept. `ownership.percentOwned` is also available and is a second
+   perceived-value signal nothing uses yet.
+
+### The live path runs
 
 ```bash
-uv run capspace fixtures-record
+uv run capspace rank --limit 15
 ```
 
-Then re-run the suite. Any mismatch surfaces in `tests/test_espn.py`.
+Executed successfully against the real league on 2026-10-29: 1569 game logs,
+106 ESPN players matched to NBA ids, pool of 100.
 
-### 2. `read_player_ranks` field path is community-mapped
+### One caveat about the current output — read this before trusting it
 
-This is the riskiest line in the codebase and it matters more than its size
-suggests, because ESPN's overall rank **is** the perceived-value column the
-entire thesis rests on.
+The 2026-27 season is nine days old. **Max games played by anyone is 6**, and
+the pool median is 5. ESPN ranks on season-to-date *totals*, which punish
+missed games; the model works in per-game rates times projected minutes and
+is games-played-neutral. So every player who has missed games currently looks
+badly under-rated: the top fifteen spreads were all players with 3 games
+against a pool median of 5 (Holmgren, Lillard, Morant, Booker, Curry).
 
-The finding: `espn_api`'s basketball `Player` exposes `posRank` (positional)
-but no overall rank and no `percent_owned` — its football and baseball
-equivalents do, basketball does not. So the rank is read from the raw
-`kona_player_info` view at:
+That is the thesis mechanism working, but right now it is a **systematic
+early-season bias, not selective arbitrage**, and it will sharpen as games
+accumulate. Two things worth doing:
 
-```
-players[].player.draftRanksByRankType.STANDARD.rank
-```
+- Add a `--min-games` filter to `rank` so thin-sample players can be excluded
+  rather than dominating the sort. Deliberately not added here: it is a
+  product decision for the owner, not a silent default.
+- Consider a games-played-adjusted comparison, since ESPN rank and model rank
+  genuinely answer different questions in the first few weeks.
 
-That path has not been run against a live private basketball league. If
-`fixtures-record` prints the yellow "No player ranks came back" warning, this
-is why, and the fix is to dump the raw payload and find where the rank
-actually lives. Everything else in the pipeline is correct regardless.
+### Remaining ESPN unknowns
+
+- `_load_from_live` works but is covered only by the auth-failure test. No
+  test exercises the happy path, because that needs credentials.
+- Only 106 of 308 ESPN players matched to NBA ids. Most of the gap is players
+  with no games yet, but the crosswalk's miss rate has not been audited.
+  `match_players_by_name` drops ambiguous names silently by design.
+- `read_settings` reads `acquisition_limit` and `waiver_process_days` from
+  the live settings object, but the values were not asserted against what the
+  league actually shows in the ESPN UI.
 
 ---
 
@@ -219,7 +269,11 @@ written yet; write the plan before the code, the way
 See `SETUP_CREDENTIALS.md` (gitignored, local only) for how to obtain each
 value. `.env` is gitignored; `.env.example` lists the keys.
 
-Still needed from the owner: the four ESPN values. Discord and AWS are not
-needed until Plan 3. Hashtag Basketball is optional and deliberately
-deferred — their free rankings page covers the sanity check the README
-describes.
+The four ESPN values are **in place** and the live path has been exercised.
+Discord and AWS are not needed until Plan 3. Hashtag Basketball is optional
+and deliberately deferred — their free rankings page covers the sanity check
+the README describes.
+
+ESPN cookies expire in roughly a year, sooner on logout or password change.
+When they do, every command fails with an `EspnAuthError` naming both
+variables; the fix is to re-copy them.
