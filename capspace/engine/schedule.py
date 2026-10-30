@@ -26,7 +26,8 @@ NBA_TEAM_COUNT: int = 30
 def _within(sched: pd.DataFrame, start: dt.date, end: dt.date) -> pd.DataFrame:
     """Rows whose `game_date` falls in `[start, end]`, both bounds inclusive."""
     dates = pd.Series(sched["game_date"].tolist(), index=sched.index)
-    return sched[(dates >= start) & (dates <= end)]
+    mask = (dates >= start) & (dates <= end)
+    return sched.loc[mask]
 
 
 def weekly_game_counts(sched: pd.DataFrame, start: dt.date, end: dt.date) -> dict[str, int]:
