@@ -21,6 +21,7 @@ player with 1800 lands near what they just did.
 from __future__ import annotations
 
 import datetime as dt
+from typing import cast
 
 import numpy as np
 import pandas as pd
@@ -66,8 +67,8 @@ def _rates_from(frame: pd.DataFrame) -> pd.DataFrame:
     played = frame[frame["minutes"] > 0]
     if played.empty:
         return pd.DataFrame(columns=list(COUNTING_STATS), index=pd.Index([], dtype="int64"))
-    totals = played.groupby("nba_id")[["minutes", *COUNTING_STATS]].sum()
-    rates = totals[list(COUNTING_STATS)].div(totals["minutes"], axis=0)
+    grouped = cast(pd.DataFrame, played.groupby("nba_id").sum(numeric_only=True))
+    rates = grouped.loc[:, list(COUNTING_STATS)].div(grouped.loc[:, "minutes"], axis=0)
     return rates.astype(float)
 
 
@@ -128,11 +129,13 @@ def projected_minutes(
     played = frame[frame["minutes"] > 0]
     if played.empty:
         return pd.Series(dtype=float)
-    return (
-        played.groupby("nba_id")["minutes"]
-        .apply(lambda s: s.ewm(halflife=MINUTES_HALF_LIFE_GAMES).mean().iloc[-1])
-        .astype(float)
+    recency_weighted = cast(
+        pd.Series,
+        played.groupby("nba_id")["minutes"].apply(
+            lambda s: s.ewm(halflife=MINUTES_HALF_LIFE_GAMES).mean().iloc[-1]
+        ),
     )
+    return recency_weighted.astype(float)
 
 
 def project(
@@ -161,7 +164,7 @@ def project(
     prior = prior.fillna(pool_mean)
 
     played = window_frame[window_frame["minutes"] > 0]
-    window_minutes = played.groupby("nba_id")["minutes"].sum()
+    window_minutes = cast(pd.Series, played.groupby("nba_id")["minutes"].sum())
 
     rates = shrink_to_prior(window_rates, prior, window_minutes)
     minutes = projected_minutes(logs, window_days, asof).reindex(rates.index).fillna(0.0)

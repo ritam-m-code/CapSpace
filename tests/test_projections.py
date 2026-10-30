@@ -137,21 +137,25 @@ class TestProjectedMinutes:
         logs = [log(1, days_ago=13 - i, minutes=10.0) for i in range(10)]
         logs += [log(1, days_ago=3 - i, minutes=34.0) for i in range(3)]
         flat_mean = (10 * 10.0 + 3 * 34.0) / 13
-        assert projected_minutes(logs, window_days=14, asof=ASOF)[1] > flat_mean
+        assert float(projected_minutes(logs, window_days=14, asof=ASOF).loc[1]) > flat_mean
 
     def test_a_shrinking_role_projects_below_the_flat_mean(self):
         logs = [log(1, days_ago=13 - i, minutes=34.0) for i in range(10)]
         logs += [log(1, days_ago=3 - i, minutes=10.0) for i in range(3)]
         flat_mean = (10 * 34.0 + 3 * 10.0) / 13
-        assert projected_minutes(logs, window_days=14, asof=ASOF)[1] < flat_mean
+        assert float(projected_minutes(logs, window_days=14, asof=ASOF).loc[1]) < flat_mean
 
     def test_a_stable_role_projects_at_its_level(self):
         logs = [log(1, days_ago=13 - i, minutes=28.0) for i in range(12)]
-        assert projected_minutes(logs, window_days=14, asof=ASOF)[1] == pytest.approx(28.0)
+        assert float(projected_minutes(logs, window_days=14, asof=ASOF).loc[1]) == pytest.approx(
+            28.0
+        )
 
     def test_did_not_play_games_are_excluded_not_averaged_as_zero(self):
         logs = [log(1, days_ago=5, minutes=30.0), log(1, days_ago=4, minutes=0.0)]
-        assert projected_minutes(logs, window_days=14, asof=ASOF)[1] == pytest.approx(30.0)
+        assert float(projected_minutes(logs, window_days=14, asof=ASOF).loc[1]) == pytest.approx(
+            30.0
+        )
 
     def test_real_fixture_minutes_are_plausible(self, real_logs):
         mins = projected_minutes(real_logs, window_days=400, asof=ASOF)
@@ -167,7 +171,7 @@ class TestProject:
         proj = project(logs, window_days=14, asof=ASOF)
         mins = projected_minutes(logs, window_days=14, asof=ASOF)
         rates = per_minute_rates(logs, window_days=14, asof=ASOF)
-        assert proj.loc[1, "pts"] == pytest.approx(float(rates.loc[1, "pts"]) * mins[1])
+        assert proj.loc[1, "pts"] == pytest.approx(float(rates.loc[1, "pts"]) * float(mins.loc[1]))
         assert proj.loc[1, "pts"] == pytest.approx(30.0)
 
     def test_output_is_per_game_not_per_window(self):
@@ -185,8 +189,8 @@ class TestProject:
 
     def test_makes_never_exceed_attempts_in_projection(self, real_logs):
         proj = project(real_logs, window_days=400, asof=ASOF)
-        assert (proj["fgm"] <= proj["fga"] + 1e-9).all()
-        assert (proj["ftm"] <= proj["fta"] + 1e-9).all()
+        assert bool((proj["fgm"] <= proj["fga"] + 1e-9).all())
+        assert bool((proj["ftm"] <= proj["fta"] + 1e-9).all())
 
     def test_the_zero_free_throw_player_projects_zero_attempts(self, real_logs):
         """Feeds Review Focus 1 downstream in metrics."""
