@@ -80,7 +80,7 @@ class TestPlayer:
 
     def test_rejects_an_unknown_status(self):
         with pytest.raises(ValidationError):
-            Player(nba_id=1, name="A", team="BOS", positions=["PG"], status="PROBABLY")
+            Player(nba_id=1, name="A", team="BOS", positions=["PG"], status="PROBABLY")  # type: ignore[arg-type]
 
 
 class TestLeagueSettings:
@@ -105,5 +105,5 @@ class TestLeagueSettings:
                 roster_slots={"PG": 1},
                 acquisition_limit=7,
                 waiver_days=1,
-                lineup_lock="HOURLY",
+                lineup_lock="HOURLY",  # type: ignore[arg-type]
             )
