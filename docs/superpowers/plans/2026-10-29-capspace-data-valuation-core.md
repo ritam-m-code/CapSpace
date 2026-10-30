@@ -205,7 +205,12 @@ Expected: FAIL — `ImportError: cannot import name 'fetch_game_logs'`
 
 - [ ] **Step 3: Implement the fetchers in `capspace/data/ingestion.py`**
 
-Use `nba_api.stats.endpoints.playergamelogs` for logs and `scoreboardv2`/`leaguegamefinder` for the schedule, each wrapped in `cache.get_or_fetch`. Minutes arrive as `"MM:SS"` strings — parse to float minutes.
+Use `nba_api.stats.endpoints.playergamelogs` for logs and `teamgamelogs` for the schedule, each wrapped in `cache.get_or_fetch`.
+
+Verified against the live API on 2026-10-29, correcting two guesses in an earlier draft of this plan:
+- `PlayerGameLogs.MIN` is a **float** of minutes (`38.283333`), not a `"MM:SS"` string. The older `PlayerGameLog` (singular) endpoint does return `"MM:SS"`, so `parse_minutes` accepts both.
+- `GAME_DATE` is an ISO string, `"2026-04-12T00:00:00"`.
+- The schedule is derived from `TeamGameLogs`, one row per team per game, whose `MATCHUP` is either `"TOR vs. BKN"` (home) or `"PHX @ OKC"` (away). Split on `" vs. "` / `" @ "` to get `team` and `opponent`.
 
 - [ ] **Step 4: Run tests to verify they pass**
 
