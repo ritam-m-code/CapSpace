@@ -175,18 +175,31 @@ League settings — roster slots, lineup lock type, acquisition limits, scoring 
 
 ## Status
 
-Design locked; implementation in progress.
+Data and valuation core shipped; `capspace rank` runs. 169 tests, `ruff` and
+`pyright` clean.
 
-- [ ] ESPN read integration, league settings, DuckDB schema
-- [ ] Projections: per-minute rates and minutes estimates
-- [ ] Volume-weighted category z-scores
-- [ ] Schedule grid and off-night density
-- [ ] CLI exploration commands
+- [x] ESPN read integration, league settings, DuckDB schema
+- [x] Projections: per-minute rates and minutes estimates
+- [x] Volume-weighted category z-scores
+- [x] Schedule grid and off-night density
+- [x] CLI exploration commands — `rank` only; `stream`, `trade`, `simulate` pending
 - [ ] Monte Carlo matchup simulator
 - [ ] Streaming MILP
 - [ ] Trade search and acceptance scoring
 - [ ] Discord bot and scheduled digest
 - [ ] Lineup write path with guardrails
+
+Two seams are not yet verified against a live league, because they need
+private-league credentials:
+
+- ESPN response shapes are modeled on the `espn_api` package rather than
+  recorded. `capspace fixtures-record` replaces them in one command.
+- `read_player_ranks` reads `draftRanksByRankType.STANDARD.rank` from the raw
+  `kona_player_info` view, because the wrapper does not expose an overall
+  rank for basketball. The field path is community-mapped, not confirmed.
+
+NBA-side data is real: fixtures are recorded from the live `nba_api`.
+See `HANDOFF.md`.
 
 ---
 
