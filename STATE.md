@@ -1,6 +1,6 @@
 # Current state
 
-Snapshot as of **2026-10-30**. This file answers "what works right now?"
+Snapshot as of **2026-11-25**. This file answers "what works right now?"
 `HANDOFF.md` answers "why is it like this, and what next?" The README is the
 spec.
 
@@ -48,8 +48,10 @@ uv run capspace rank --view zscore --sort-by spread
 uv run capspace fixtures-record
 ```
 
-Credentials come from `.env`. Last live run (2026-10-29): 1569 game logs, 106 ESPN players matched to
-NBA ids, pool of 100.
+Credentials come from `.env`. Last live run (2026-11-25): 5842 game logs,
+109 ESPN players matched to NBA ids, pool of 89. The cold `nba_api` pull now
+takes over two minutes as the season accumulates; the 12h cache absorbs it
+after the first call.
 
 ### Without credentials or network
 
@@ -131,14 +133,24 @@ run is the meaningful one.
 
 Ordered by how much they matter.
 
-1. **Early-season bias in the headline output.** The season is 9 days old;
-   max games played by anyone is 6, pool median 5. ESPN ranks on
-   season-to-date *totals*, which punish missed games; the model uses
-   per-game rates and is games-played-neutral. So every player who missed
-   games reads as badly under-rated — the top 15 spreads were all 3-game
-   players. Intended mechanism, but currently a systematic bias rather than
-   selective arbitrage. A `--min-games` filter would fix the sort; **not
-   added, because it is a product decision for the owner.**
+1. **Residual games-played correlation in the headline output.** *Largely
+   resolved on its own.* ESPN ranks on season-to-date *totals*, which punish
+   missed games; the model uses per-game rates and is games-played-neutral.
+   Nine days into the season that produced a systematic one-way bias. A month
+   later it has mostly washed out:
+
+   | | 2026-10-29 | 2026-11-25 |
+   |---|---|---|
+   | games played, pool median | 5 | 17 |
+   | games played, max | 6 | 19 |
+   | spread range | +26 to +69 (all positive) | −48 to +38 (two-sided) |
+   | top-10 spread median GP vs pool | 3 vs 5 | 15 vs 17 |
+   | corr(spread, games played) | — | −0.34 |
+
+   The output is now genuine two-sided arbitrage rather than a one-way
+   artifact. A **−0.34 residual correlation remains**, so thin-sample players
+   still skew somewhat high. `--min-games` is now a refinement rather than a
+   necessity; still not added, still the owner's call.
 
 2. **`_load_from_live` has no happy-path test.** It runs correctly, but only
    the auth-failure branch is covered, since the rest needs credentials.

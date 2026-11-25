@@ -1,4 +1,4 @@
-# CapSpace handoff — 2026-10-29
+# CapSpace handoff — 2026-10-29, re-verified 2026-11-25
 
 Written at the halfway mark for whoever picks this up next, human or agent.
 
@@ -93,13 +93,23 @@ uv run capspace rank --limit 15
 Executed successfully against the real league on 2026-10-29: 1569 game logs,
 106 ESPN players matched to NBA ids, pool of 100.
 
-### One caveat worth carrying forward
+### One caveat, now mostly self-resolved
 
-The spreads this currently produces are dominated by games played, not by
-quality: ESPN ranks on season-to-date totals, the model on per-game rates.
-Nine days into the season that is a systematic bias, not arbitrage. See
-`STATE.md` issue 1 — it resolves itself as games accumulate, and a
-`--min-games` filter is the product decision left open.
+The spreads this produced in late October were dominated by games played
+rather than quality: ESPN ranks on season-to-date totals, the model on
+per-game rates. Nine days into a season that is a systematic one-way bias.
+
+Re-checked on 2026-11-25: the pool's median games played went 5 → 17 and the
+spread range went from all-positive (+26 to +69) to two-sided (−48 to +38),
+so the artifact has largely washed out and the column now carries real
+signal in both directions. A residual correlation of −0.34 between spread and
+games played remains. See `STATE.md` issue 1 for the full comparison.
+
+The general lesson is worth keeping even though this instance resolved: the
+model and ESPN answer different questions, and the gap between them is
+largest exactly when the sample is thinnest. Any future metric compared
+against ESPN rank should be checked for the same sample-size artifact before
+being trusted.
 
 ---
 
